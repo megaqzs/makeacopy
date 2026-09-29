@@ -11,6 +11,7 @@ package de.schliweb.makeacopy.utils.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,15 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import de.schliweb.makeacopy.R;
 import lombok.experimental.UtilityClass;
 
 /**
  * A utility class containing helper methods for common user interface tasks. This class provides
- * functions to adjust view margins for system insets, handle status bar height, and display Toast
+ * functions to pad bottom bars for system insets, handle status bar height, and display Toast
  * messages safely.
  *
  * <p>This class is not intended to be instantiated.
@@ -34,35 +37,40 @@ public class UIUtils {
   private static final String TAG = "UIUtils";
 
   /**
-   * Adjusts the bottom margin of the given view to account for system insets, such as the
-   * navigation bar, while also applying an additional base margin specified in dp.
+   * Pads the content of a bottom bar by the system insets (navigation bar, display cutout) on top
+   * of the padding declared in the layout. The bar itself keeps the full width and reaches the
+   * bottom edge, so its background runs behind the navigation bar. Safe to call repeatedly.
    *
-   * @param view The view whose bottom margin should be adjusted. If null, the method does nothing.
-   * @param baseMarginDp The base margin in dp to be added to the system insets. This value is
-   *     converted to pixels before being applied.
+   * @param bar The bottom bar container. If null, the method does nothing.
    */
-  public static void adjustMarginForSystemInsets(View view, int baseMarginDp) {
-    if (view == null) {
+  public static void applyBottomBarInsets(View bar) {
+    if (bar == null) {
       return;
     }
 
-    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-    if (params == null) {
-      return;
+    Rect base;
+    if (bar.getTag(R.id.tag_bottom_bar_base_padding) instanceof Rect r) {
+      base = r;
+    } else {
+      base =
+          new Rect(
+              bar.getPaddingLeft(),
+              bar.getPaddingTop(),
+              bar.getPaddingRight(),
+              bar.getPaddingBottom());
+      bar.setTag(R.id.tag_bottom_bar_base_padding, base);
     }
 
-    int bottomInset = 0;
-    WindowInsetsCompat windowInsets = ViewCompat.getRootWindowInsets(view);
+    Insets insets = Insets.NONE;
+    WindowInsetsCompat windowInsets = ViewCompat.getRootWindowInsets(bar);
     if (windowInsets != null) {
-      bottomInset = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+      insets =
+          windowInsets.getInsets(
+              WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
     }
 
-    // Convert dp to pixels
-    float density = view.getResources().getDisplayMetrics().density;
-    int baseMarginPx = (int) (baseMarginDp * density);
-
-    params.bottomMargin = baseMarginPx + bottomInset;
-    view.setLayoutParams(params);
+    bar.setPadding(
+        base.left + insets.left, base.top, base.right + insets.right, base.bottom + insets.bottom);
   }
 
   /**

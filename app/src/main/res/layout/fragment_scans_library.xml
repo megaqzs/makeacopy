@@ -221,15 +221,10 @@
         <!-- Bottom button container: Back + Collections, or Delete-selected while multi-select is active -->
         <LinearLayout
             android:id="@+id/button_container"
+            style="@style/Widget.MakeACopy.BottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="?attr/colorSurfaceContainer"
-            android:padding="12dp"
-            android:elevation="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -252,7 +247,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="12dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@string/open_collections"

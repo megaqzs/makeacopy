@@ -138,21 +138,21 @@ public class ScansLibraryFragment extends Fragment {
 
   /**
    * Apply system insets: the AppBarLayout (fitsSystemWindows) handles the status bar; the bottom
-   * button container gets the nav bar inset added to its base margin.
+   * button container gets the nav bar inset added to its padding.
    */
   private void setupInsets(View root) {
-    de.schliweb.makeacopy.utils.ui.UIUtils.adjustMarginForSystemInsets(buttonContainer, 8);
+    de.schliweb.makeacopy.utils.ui.UIUtils.applyBottomBarInsets(buttonContainer);
     androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(
         root,
         (v, insets) -> {
-          de.schliweb.makeacopy.utils.ui.UIUtils.adjustMarginForSystemInsets(buttonContainer, 8);
+          de.schliweb.makeacopy.utils.ui.UIUtils.applyBottomBarInsets(buttonContainer);
           return insets;
         });
     root.addOnAttachStateChangeListener(
         new View.OnAttachStateChangeListener() {
           @Override
           public void onViewAttachedToWindow(@NonNull View v) {
-            de.schliweb.makeacopy.utils.ui.UIUtils.adjustMarginForSystemInsets(buttonContainer, 8);
+            de.schliweb.makeacopy.utils.ui.UIUtils.applyBottomBarInsets(buttonContainer);
             androidx.core.view.ViewCompat.requestApplyInsets(v);
           }
 

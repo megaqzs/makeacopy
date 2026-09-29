@@ -605,7 +605,7 @@ public class ExportFragment extends Fragment {
         root,
         (v, insets) -> {
           UIUtils.adjustTextViewTopMarginForStatusBar(binding.textExport, 8);
-          UIUtils.adjustMarginForSystemInsets(binding.exportOptionsGroup, 8);
+          UIUtils.applyBottomBarInsets(binding.exportOptionsGroup);
           return insets;
         });
 

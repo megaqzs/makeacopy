@@ -63,12 +63,12 @@ public class CollectionsFragment extends Fragment {
     buttonContainer = root.findViewById(R.id.button_container);
 
     // Apply system insets: add status bar top inset to root padding; the bottom button
-    // container gets the nav bar inset added to its base margin (shared UIUtils pattern).
+    // container gets the nav bar inset added to its padding (shared UIUtils pattern).
     final int origPadLeft = root.getPaddingLeft();
     final int origPadTop = root.getPaddingTop();
     final int origPadRight = root.getPaddingRight();
     final int origPadBottom = root.getPaddingBottom();
-    UIUtils.adjustMarginForSystemInsets(buttonContainer, 8);
+    UIUtils.applyBottomBarInsets(buttonContainer);
     androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(
         root,
         (v, insets) -> {
@@ -77,14 +77,14 @@ public class CollectionsFragment extends Fragment {
           // Top inset for status bar
           v.setPadding(origPadLeft, origPadTop + sb.top, origPadRight, origPadBottom);
           // Bottom inset for nav bar on the bottom button container
-          UIUtils.adjustMarginForSystemInsets(buttonContainer, 8);
+          UIUtils.applyBottomBarInsets(buttonContainer);
           return insets;
         });
     root.addOnAttachStateChangeListener(
         new View.OnAttachStateChangeListener() {
           @Override
           public void onViewAttachedToWindow(@NonNull View v) {
-            UIUtils.adjustMarginForSystemInsets(buttonContainer, 8);
+            UIUtils.applyBottomBarInsets(buttonContainer);
             androidx.core.view.ViewCompat.requestApplyInsets(v);
           }
 

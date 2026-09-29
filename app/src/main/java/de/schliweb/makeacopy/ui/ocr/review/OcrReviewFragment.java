@@ -313,13 +313,13 @@ public class OcrReviewFragment extends Fragment {
   /** Bottom Button Container (BACK/SAVE) wiring. */
   private void setupBottomButtons(View root) {
     View buttonContainer = root.findViewById(R.id.button_container);
-    // Adjust button container margin for system navigation bar (like other fragments)
+    // Pad button container for system navigation bar (like other fragments)
     if (buttonContainer != null) {
-      UIUtils.adjustMarginForSystemInsets(buttonContainer, 12);
+      UIUtils.applyBottomBarInsets(buttonContainer);
       androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(
           buttonContainer,
           (v, insets) -> {
-            UIUtils.adjustMarginForSystemInsets(buttonContainer, 12);
+            UIUtils.applyBottomBarInsets(buttonContainer);
             return insets;
           });
     }

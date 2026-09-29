@@ -292,11 +292,11 @@ public class OCRFragment extends Fragment {
         });
 
     // Bottom inset for button container
-    UIUtils.adjustMarginForSystemInsets(binding.buttonContainer, 12);
+    UIUtils.applyBottomBarInsets(binding.buttonContainer);
     ViewCompat.setOnApplyWindowInsetsListener(
         binding.buttonContainer,
         (v, insets) -> {
-          UIUtils.adjustMarginForSystemInsets(binding.buttonContainer, 12);
+          UIUtils.applyBottomBarInsets(binding.buttonContainer);
           return insets;
         });
   }

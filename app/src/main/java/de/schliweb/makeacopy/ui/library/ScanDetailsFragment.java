@@ -188,14 +188,6 @@ public class ScanDetailsFragment extends Fragment {
     } else {
       origContentTopMargin = 0;
     }
-    final int origBottomMargin;
-    if (bottomContainer != null
-        && bottomContainer.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-      origBottomMargin =
-          ((ViewGroup.MarginLayoutParams) bottomContainer.getLayoutParams()).bottomMargin;
-    } else {
-      origBottomMargin = 0;
-    }
     androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(
         root,
         (v, insets) -> {
@@ -210,11 +202,7 @@ public class ScanDetailsFragment extends Fragment {
             content.setLayoutParams(clp);
           }
           // Bottom inset for nav bar on the bottom button container
-          if (bottomContainer != null
-              && bottomContainer.getLayoutParams() instanceof ViewGroup.MarginLayoutParams mlp) {
-            mlp.bottomMargin = origBottomMargin + sb.bottom;
-            bottomContainer.setLayoutParams(mlp);
-          }
+          UIUtils.applyBottomBarInsets(bottomContainer);
           return insets;
         });
 

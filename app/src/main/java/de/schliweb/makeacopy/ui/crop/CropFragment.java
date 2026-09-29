@@ -106,7 +106,7 @@ public class CropFragment extends Fragment {
     ViewCompat.setOnApplyWindowInsetsListener(
         binding.cropButtonContainer,
         (v, insets) -> {
-          UIUtils.adjustMarginForSystemInsets(binding.cropButtonContainer, 8);
+          UIUtils.applyBottomBarInsets(binding.cropButtonContainer);
           return insets;
         });
 
@@ -162,7 +162,6 @@ public class CropFragment extends Fragment {
         root,
         (v, insets) -> {
           UIUtils.adjustTextViewTopMarginForStatusBar(binding.textCrop, 8);
-          UIUtils.adjustMarginForSystemInsets(binding.cropButtonContainer, 80);
           return insets;
         });
 

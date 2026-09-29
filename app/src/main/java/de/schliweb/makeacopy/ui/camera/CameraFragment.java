@@ -424,13 +424,13 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     ViewCompat.setOnApplyWindowInsetsListener(
         binding.buttonContainer,
         (v, insets) -> {
-          UIUtils.adjustMarginForSystemInsets(binding.buttonContainer, 8);
+          UIUtils.applyBottomBarInsets(binding.buttonContainer);
           return insets;
         });
     ViewCompat.setOnApplyWindowInsetsListener(
         binding.scanButtonContainer,
         (v, insets) -> {
-          UIUtils.adjustMarginForSystemInsets(binding.scanButtonContainer, 8);
+          UIUtils.applyBottomBarInsets(binding.scanButtonContainer);
           return insets;
         });
     // Insets (Status bar)

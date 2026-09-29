@@ -26,6 +26,7 @@ import de.schliweb.makeacopy.R;
 import de.schliweb.makeacopy.data.CompletedScansRegistry;
 import de.schliweb.makeacopy.ui.export.session.CompletedScan;
 import de.schliweb.makeacopy.utils.ui.DialogUtils;
+import de.schliweb.makeacopy.utils.ui.UIUtils;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -89,10 +90,6 @@ public class CompletedScansPickerFragment extends Fragment
     final int titleOrigTop = titleView != null ? titleView.getPaddingTop() : 0;
     final int titleOrigRight = titleView != null ? titleView.getPaddingRight() : 0;
     final int titleOrigBottom = titleView != null ? titleView.getPaddingBottom() : 0;
-    final int bottomOrigLeft = bottomContainer != null ? bottomContainer.getPaddingLeft() : 0;
-    final int bottomOrigTop = bottomContainer != null ? bottomContainer.getPaddingTop() : 0;
-    final int bottomOrigRight = bottomContainer != null ? bottomContainer.getPaddingRight() : 0;
-    final int bottomOrigBottom = bottomContainer != null ? bottomContainer.getPaddingBottom() : 0;
     androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(
         root,
         (v, insets) -> {
@@ -102,21 +99,7 @@ public class CompletedScansPickerFragment extends Fragment
             titleView.setPadding(
                 titleOrigLeft, titleOrigTop + sb.top, titleOrigRight, titleOrigBottom);
           }
-          if (bottomContainer != null) {
-            // Apply system bar inset as additional bottom MARGIN instead of padding to avoid
-            // inflating the container's interior height. This keeps buttons visually centered.
-            android.view.ViewGroup.LayoutParams lp = bottomContainer.getLayoutParams();
-            if (lp instanceof androidx.constraintlayout.widget.ConstraintLayout.LayoutParams clp) {
-              clp.bottomMargin = bottomOrigBottom + sb.bottom;
-              bottomContainer.setLayoutParams(clp);
-            } else if (lp instanceof ViewGroup.MarginLayoutParams mlp) {
-              mlp.bottomMargin = bottomOrigBottom + sb.bottom;
-              bottomContainer.setLayoutParams(mlp);
-            }
-            // Keep original padding
-            bottomContainer.setPadding(
-                bottomOrigLeft, bottomOrigTop, bottomOrigRight, bottomOrigBottom);
-          }
+          UIUtils.applyBottomBarInsets(bottomContainer);
           return insets;
         });
 
