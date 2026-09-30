@@ -2391,6 +2391,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     if (!isAdded() || binding == null || isLowLightDialogVisible) return;
     long now = System.currentTimeMillis();
     if (lowLightPromptShown || (now - lastPromptTime) < MIN_TIME_BETWEEN_PROMPTS) return;
+    if (!isLowLightPromptEnabled()) return;
 
     // Accessibility Mode: speak hint instead of showing dialog
     if (isAccessibilityModeEnabled()) {
@@ -2418,6 +2419,10 @@ public class CameraFragment extends Fragment implements SensorEventListener {
                   })
               .setNegativeButton(
                   android.R.string.cancel, (dialogInterface, id) -> dialogInterface.dismiss())
+              // Same setting as "Ask about flashlight in low light" in the options dialog
+              .setNeutralButton(
+                  R.string.low_light_dont_ask_again,
+                  (dialogInterface, id) -> setLowLightPromptEnabled(false))
               .create();
 
       dialog.setOnDismissListener(d -> isLowLightDialogVisible = false);
@@ -3806,6 +3811,22 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     out.bottom = Math.max(0f, Math.min(out.bottom, bmpH));
     if (out.width() <= 0 || out.height() <= 0) return null;
     return out;
+  }
+
+  private boolean isLowLightPromptEnabled() {
+    Context ctx = getContext();
+    if (ctx == null) return false;
+    return ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE)
+        .getBoolean(CameraOptionsDialogFragment.BUNDLE_LOW_LIGHT_PROMPT, true);
+  }
+
+  private void setLowLightPromptEnabled(boolean enabled) {
+    Context ctx = getContext();
+    if (ctx == null) return;
+    ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE)
+        .edit()
+        .putBoolean(CameraOptionsDialogFragment.BUNDLE_LOW_LIGHT_PROMPT, enabled)
+        .apply();
   }
 
   private boolean isAccessibilityModeEnabled() {

@@ -12,6 +12,13 @@
         android:paddingTop="16dp"
         android:paddingBottom="12dp">
 
+        <!-- Scan: what happens between capture and export -->
+        <TextView
+            style="@style/Widget.MakeACopy.OptionsSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/options_section_scan" />
+
         <CheckBox
             android:id="@+id/dialog_checkbox_skip_ocr"
             android:layout_width="match_parent"
@@ -36,11 +43,12 @@
             android:layout_height="wrap_content"
             android:text="@string/preview_corner_detection" />
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_accessibility_mode"
-            android:layout_width="match_parent"
+        <!-- Camera: how the picture is taken -->
+        <TextView
+            style="@style/Widget.MakeACopy.OptionsSection"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/accessibility_mode_label" />
+            android:text="@string/options_section_camera" />
 
         <CheckBox
             android:id="@+id/dialog_checkbox_exposure_compensation"
@@ -60,12 +68,30 @@
             android:layout_height="wrap_content"
             android:text="@string/focus_quality_option" />
 
+        <CheckBox
+            android:id="@+id/dialog_checkbox_low_light_prompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/low_light_prompt_option" />
+
+        <!-- App: settings that apply everywhere -->
+        <TextView
+            style="@style/Widget.MakeACopy.OptionsSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/options_section_app" />
+
+        <CheckBox
+            android:id="@+id/dialog_checkbox_accessibility_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/accessibility_mode_label" />
+
         <!-- In-app UI language: label plus current value, opens a picker -->
         <LinearLayout
             android:id="@+id/row_app_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:minHeight="48dp"
             android:orientation="vertical"
             android:gravity="center_vertical"

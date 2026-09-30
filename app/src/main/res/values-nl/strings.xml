@@ -85,6 +85,11 @@
     <string name="flashlight_off">Zaklamp uit</string>
     <string name="flashlight_not_available">Zaklamp niet beschikbaar op dit apparaat</string>
     <string name="low_light_detected">Weinig licht gedetecteerd. Zaklamp inschakelen?</string>
+    <string name="options_section_scan">Scannen</string>
+    <string name="options_section_camera">Camera</string>
+    <string name="options_section_app">App</string>
+    <string name="low_light_prompt_option">Bij weinig licht vragen om de zaklamp</string>
+    <string name="low_light_dont_ask_again">Niet meer vragen</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

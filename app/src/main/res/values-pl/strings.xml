@@ -84,6 +84,11 @@
     <string name="flashlight_off">Latarka wyłączona</string>
     <string name="flashlight_not_available">Latarka niedostępna na tym urządzeniu</string>
     <string name="low_light_detected">Wykryto słabe oświetlenie. Włączyć latarkę?</string>
+    <string name="options_section_scan">Skanowanie</string>
+    <string name="options_section_camera">Aparat</string>
+    <string name="options_section_app">Aplikacja</string>
+    <string name="low_light_prompt_option">Pytaj o latarkę przy słabym oświetleniu</string>
+    <string name="low_light_dont_ask_again">Nie pytaj ponownie</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

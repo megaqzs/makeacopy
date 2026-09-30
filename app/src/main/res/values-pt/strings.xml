@@ -86,6 +86,11 @@
     <string name="flashlight_off">Lanterna desligada</string>
     <string name="flashlight_not_available">Lanterna não disponível neste dispositivo</string>
     <string name="low_light_detected">Baixa luminosidade detectada. Ligar a lanterna?</string>
+    <string name="options_section_scan">Digitalização</string>
+    <string name="options_section_camera">Câmara</string>
+    <string name="options_section_app">Aplicação</string>
+    <string name="low_light_prompt_option">Perguntar pela lanterna com pouca luz</string>
+    <string name="low_light_dont_ask_again">Não perguntar novamente</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

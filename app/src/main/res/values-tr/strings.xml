@@ -84,6 +84,11 @@
     <string name="flashlight_off">Fener kapalı</string>
     <string name="flashlight_not_available">Bu cihazda fener kullanılamıyor</string>
     <string name="low_light_detected">Düşük ışık algılandı. Fener açılsın mı?</string>
+    <string name="options_section_scan">Tarama</string>
+    <string name="options_section_camera">Kamera</string>
+    <string name="options_section_app">Uygulama</string>
+    <string name="low_light_prompt_option">Düşük ışıkta el fenerini sor</string>
+    <string name="low_light_dont_ask_again">Bir daha sorma</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

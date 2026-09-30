@@ -84,6 +84,11 @@
     <string name="flashlight_off">Vaku kikapcsolva</string>
     <string name="flashlight_not_available">A vaku nem érhető el ezen az eszközön</string>
     <string name="low_light_detected">Gyenge fényviszonyok észlelve. Bekapcsolja a vakut?</string>
+    <string name="options_section_scan">Beolvasás</string>
+    <string name="options_section_camera">Kamera</string>
+    <string name="options_section_app">Alkalmazás</string>
+    <string name="low_light_prompt_option">Gyenge fénynél kérdezzen rá a zseblámpára</string>
+    <string name="low_light_dont_ask_again">Ne kérdezze újra</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

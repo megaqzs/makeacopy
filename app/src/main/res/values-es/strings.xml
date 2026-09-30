@@ -88,6 +88,11 @@
     <string name="flashlight_off">Linterna apagada</string>
     <string name="flashlight_not_available">Linterna no disponible en este dispositivo</string>
     <string name="low_light_detected">Baja luz detectada. ¿Encender la linterna?</string>
+    <string name="options_section_scan">Escaneo</string>
+    <string name="options_section_camera">Cámara</string>
+    <string name="options_section_app">Aplicación</string>
+    <string name="low_light_prompt_option">Preguntar por la linterna con poca luz</string>
+    <string name="low_light_dont_ask_again">No volver a preguntar</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

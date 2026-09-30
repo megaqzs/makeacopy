@@ -83,6 +83,11 @@
     <string name="flashlight_off">Lommelykt av</string>
     <string name="flashlight_not_available">Lommelykt er ikke tilgjengelig på denne enheten</string>
     <string name="low_light_detected">Svakt lys oppdaget. Vil du slå på lommelykten?</string>
+    <string name="options_section_scan">Skanning</string>
+    <string name="options_section_camera">Kamera</string>
+    <string name="options_section_app">App</string>
+    <string name="low_light_prompt_option">Spør om lommelykt ved svakt lys</string>
+    <string name="low_light_dont_ask_again">Ikke spør igjen</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

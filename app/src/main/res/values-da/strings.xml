@@ -83,6 +83,11 @@
     <string name="flashlight_off">Lommelygte slukket</string>
     <string name="flashlight_not_available">Lommelygte ikke tilgængelig på denne enhed</string>
     <string name="low_light_detected">Svagt lys registreret. Vil du tænde lommelygten?</string>
+    <string name="options_section_scan">Scanning</string>
+    <string name="options_section_camera">Kamera</string>
+    <string name="options_section_app">App</string>
+    <string name="low_light_prompt_option">Spørg om lommelygte ved svagt lys</string>
+    <string name="low_light_dont_ask_again">Spørg ikke igen</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

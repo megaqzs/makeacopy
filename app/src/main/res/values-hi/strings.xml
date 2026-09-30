@@ -76,6 +76,11 @@
     <string name="flashlight_off">फ्लैशलाइट बंद</string>
     <string name="flashlight_not_available">इस डिवाइस पर फ्लैशलाइट उपलब्ध नहीं है</string>
     <string name="low_light_detected">कम रोशनी का पता चला। फ्लैशलाइट चालू करें?</string>
+    <string name="options_section_scan">स्कैन</string>
+    <string name="options_section_camera">कैमरा</string>
+    <string name="options_section_app">ऐप</string>
+    <string name="low_light_prompt_option">कम रोशनी में फ़्लैशलाइट के बारे में पूछें</string>
+    <string name="low_light_dont_ask_again">फिर से न पूछें</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

@@ -48,6 +48,9 @@ public class CameraOptionsDialogFragment extends DialogFragment {
   public static final String BUNDLE_MANUAL_FOCUS = "manual_focus_enabled";
   public static final String BUNDLE_FOCUS_QUALITY_INDICATOR = "focus_quality_indicator_enabled";
 
+  /** Whether the camera may ask to turn on the flashlight in low light. Default: yes. */
+  public static final String BUNDLE_LOW_LIGHT_PROMPT = "low_light_prompt_enabled";
+
   private static final String FRAGMENT_TAG = "CameraOptionsDialogFragment";
 
   public static void show(@NonNull FragmentManager fm) {
@@ -326,6 +329,7 @@ public class CameraOptionsDialogFragment extends DialogFragment {
     CheckBox cbExposure = view.findViewById(R.id.dialog_checkbox_exposure_compensation);
     CheckBox cbManualFocus = view.findViewById(R.id.dialog_checkbox_manual_focus);
     CheckBox cbFocusQuality = view.findViewById(R.id.dialog_checkbox_focus_quality);
+    CheckBox cbLowLightPrompt = view.findViewById(R.id.dialog_checkbox_low_light_prompt);
     // Auto‑Capture/Auto‑Torch options removed to keep it simple
 
     SharedPreferences prefs = ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE);
@@ -337,6 +341,7 @@ public class CameraOptionsDialogFragment extends DialogFragment {
     boolean exposureEnabled = prefs.getBoolean(BUNDLE_EXPOSURE_COMPENSATION, false);
     boolean manualFocusEnabled = prefs.getBoolean(BUNDLE_MANUAL_FOCUS, false);
     boolean focusQualityEnabled = prefs.getBoolean(BUNDLE_FOCUS_QUALITY_INDICATOR, false);
+    boolean lowLightPromptEnabled = prefs.getBoolean(BUNDLE_LOW_LIGHT_PROMPT, true);
     cbSkip.setChecked(skipOcr);
     if (cbSkipCropping != null) cbSkipCropping.setChecked(skipPerspective);
     if (cbSkipEdgeDetection != null) cbSkipEdgeDetection.setChecked(skipEdgeDetection);
@@ -344,6 +349,7 @@ public class CameraOptionsDialogFragment extends DialogFragment {
     if (cbAccessibility != null) cbAccessibility.setChecked(accessibilityMode);
     if (cbExposure != null) cbExposure.setChecked(exposureEnabled);
     if (cbManualFocus != null) cbManualFocus.setChecked(manualFocusEnabled);
+    if (cbLowLightPrompt != null) cbLowLightPrompt.setChecked(lowLightPromptEnabled);
     if (cbFocusQuality != null) {
       // The setting is only offered while the build-time feature flag is enabled.
       if (de.schliweb.makeacopy.utils.infra.FeatureFlags.isFocusQualityIndicatorEnabled()) {
@@ -385,6 +391,7 @@ public class CameraOptionsDialogFragment extends DialogFragment {
           boolean exposure = cbExposure != null && cbExposure.isChecked();
           boolean manualFocus = cbManualFocus != null && cbManualFocus.isChecked();
           boolean focusQuality = cbFocusQuality != null && cbFocusQuality.isChecked();
+          boolean lowLightPrompt = cbLowLightPrompt == null || cbLowLightPrompt.isChecked();
           // No extra A11y options persisted
 
           // Persist. "include_ocr" is deliberately NOT touched here: it is the export option
@@ -399,6 +406,7 @@ public class CameraOptionsDialogFragment extends DialogFragment {
               .putBoolean(BUNDLE_EXPOSURE_COMPENSATION, exposure)
               .putBoolean(BUNDLE_MANUAL_FOCUS, manualFocus)
               .putBoolean(BUNDLE_FOCUS_QUALITY_INDICATOR, focusQuality)
+              .putBoolean(BUNDLE_LOW_LIGHT_PROMPT, lowLightPrompt)
               .apply();
 
           Bundle result = new Bundle();

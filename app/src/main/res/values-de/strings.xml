@@ -85,6 +85,11 @@
     <string name="flashlight_off">Taschenlampe aus</string>
     <string name="flashlight_not_available">Taschenlampe auf diesem Gerät nicht verfügbar</string>
     <string name="low_light_detected">Schwaches Licht erkannt. Taschenlampe einschalten?</string>
+    <string name="options_section_scan">Scannen</string>
+    <string name="options_section_camera">Kamera</string>
+    <string name="options_section_app">App</string>
+    <string name="low_light_prompt_option">Bei wenig Licht nach der Taschenlampe fragen</string>
+    <string name="low_light_dont_ask_again">Nicht mehr fragen</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">BK %1$s</string>

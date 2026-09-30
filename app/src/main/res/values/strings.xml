@@ -94,6 +94,11 @@
     <string name="flashlight_off">Flashlight off</string>
     <string name="flashlight_not_available">Flashlight not available on this device</string>
     <string name="low_light_detected">Low light detected. Turn on flashlight?</string>
+    <string name="options_section_scan">Scan</string>
+    <string name="options_section_camera">Camera</string>
+    <string name="options_section_app">App</string>
+    <string name="low_light_prompt_option">Ask about flashlight in low light</string>
+    <string name="low_light_dont_ask_again">Don\'t ask again</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

@@ -81,6 +81,11 @@
     <string name="flashlight_off">ไฟฉายปิด</string>
     <string name="flashlight_not_available">อุปกรณ์นี้ไม่มีไฟฉาย</string>
     <string name="low_light_detected">ตรวจพบแสงน้อย เปิดไฟฉายหรือไม่?</string>
+    <string name="options_section_scan">การสแกน</string>
+    <string name="options_section_camera">กล้อง</string>
+    <string name="options_section_app">แอป</string>
+    <string name="low_light_prompt_option">ถามเรื่องไฟฉายเมื่อแสงน้อย</string>
+    <string name="low_light_dont_ask_again">ไม่ต้องถามอีก</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

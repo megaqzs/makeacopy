@@ -82,6 +82,11 @@
     <string name="flashlight_off">الفلاش متوقف</string>
     <string name="flashlight_not_available">الفلاش غير متوفر على هذا الجهاز</string>
     <string name="low_light_detected">تم اكتشاف إضاءة منخفضة. تشغيل الفلاش؟</string>
+    <string name="options_section_scan">المسح</string>
+    <string name="options_section_camera">الكاميرا</string>
+    <string name="options_section_app">التطبيق</string>
+    <string name="low_light_prompt_option">السؤال عن المصباح عند الإضاءة الخافتة</string>
+    <string name="low_light_dont_ask_again">عدم السؤال مرة أخرى</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">تعويض التعريض %1$s</string>

@@ -86,6 +86,11 @@
     <string name="flashlight_off">Lampe éteinte</string>
     <string name="flashlight_not_available">Lampe non disponible sur cet appareil</string>
     <string name="low_light_detected">Faible luminosité détectée. Allumer la lampe ?</string>
+    <string name="options_section_scan">Numérisation</string>
+    <string name="options_section_camera">Caméra</string>
+    <string name="options_section_app">Application</string>
+    <string name="low_light_prompt_option">Proposer la lampe torche en cas de faible luminosité</string>
+    <string name="low_light_dont_ask_again">Ne plus demander</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

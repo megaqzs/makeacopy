@@ -85,6 +85,11 @@
     <string name="flashlight_off">چراغ‌قوه خاموش</string>
     <string name="flashlight_not_available">چراغ‌قوه در این دستگاه در دسترس نیست</string>
     <string name="low_light_detected">نور کم تشخیص داده شد. چراغ‌قوه روشن شود؟</string>
+    <string name="options_section_scan">اسکن</string>
+    <string name="options_section_camera">دوربین</string>
+    <string name="options_section_app">برنامه</string>
+    <string name="low_light_prompt_option">در نور کم درباره چراغ‌قوه بپرس</string>
+    <string name="low_light_dont_ask_again">دیگر نپرس</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">جبران نوردهی %1$s</string>

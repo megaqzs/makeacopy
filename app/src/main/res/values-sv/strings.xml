@@ -83,6 +83,11 @@
     <string name="flashlight_off">Ficklampa av</string>
     <string name="flashlight_not_available">Ficklampa inte tillgänglig på den här enheten</string>
     <string name="low_light_detected">Svagt ljus upptäckt. Vill du slå på ficklampan?</string>
+    <string name="options_section_scan">Skanning</string>
+    <string name="options_section_camera">Kamera</string>
+    <string name="options_section_app">App</string>
+    <string name="low_light_prompt_option">Fråga om ficklampa vid svagt ljus</string>
+    <string name="low_light_dont_ask_again">Fråga inte igen</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

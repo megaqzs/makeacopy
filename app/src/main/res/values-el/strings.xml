@@ -78,6 +78,11 @@
     <string name="flashlight_off">Ο φακός ανενεργός</string>
     <string name="flashlight_not_available">Ο φακός δεν είναι διαθέσιμος σε αυτήν τη συσκευή</string>
     <string name="low_light_detected">Εντοπίστηκε χαμηλός φωτισμός. Να ενεργοποιηθεί ο φακός;</string>
+    <string name="options_section_scan">Σάρωση</string>
+    <string name="options_section_camera">Κάμερα</string>
+    <string name="options_section_app">Εφαρμογή</string>
+    <string name="low_light_prompt_option">Ερώτηση για τον φακό σε χαμηλό φωτισμό</string>
+    <string name="low_light_dont_ask_again">Να μην ερωτηθώ ξανά</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

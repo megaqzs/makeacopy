@@ -85,6 +85,11 @@
     <string name="flashlight_off">Lanternă oprită</string>
     <string name="flashlight_not_available">Lanterna nu este disponibilă pe acest dispozitiv</string>
     <string name="low_light_detected">Luminozitate scăzută detectată. Dorești să pornești lanterna?</string>
+    <string name="options_section_scan">Scanare</string>
+    <string name="options_section_camera">Cameră</string>
+    <string name="options_section_app">Aplicație</string>
+    <string name="low_light_prompt_option">Întreabă despre lanternă la lumină slabă</string>
+    <string name="low_light_dont_ask_again">Nu mai întreba</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

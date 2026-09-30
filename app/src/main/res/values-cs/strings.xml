@@ -85,6 +85,11 @@
     <string name="flashlight_off">Svítilna vypnuta</string>
     <string name="flashlight_not_available">Svítilna není na tomto zařízení dostupná</string>
     <string name="low_light_detected">Zjištěno slabé osvětlení. Zapnout svítilnu?</string>
+    <string name="options_section_scan">Skenování</string>
+    <string name="options_section_camera">Fotoaparát</string>
+    <string name="options_section_app">Aplikace</string>
+    <string name="low_light_prompt_option">Při slabém světle nabídnout svítilnu</string>
+    <string name="low_light_dont_ask_again">Už se neptat</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>

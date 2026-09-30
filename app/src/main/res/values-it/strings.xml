@@ -87,6 +87,11 @@
     <string name="flashlight_off">Torcia spenta</string>
     <string name="flashlight_not_available">Torcia non disponibile su questo dispositivo</string>
     <string name="low_light_detected">Scarsa luminosità rilevata. Accendere la torcia?</string>
+    <string name="options_section_scan">Scansione</string>
+    <string name="options_section_camera">Fotocamera</string>
+    <string name="options_section_app">App</string>
+    <string name="low_light_prompt_option">Chiedi di attivare la torcia con poca luce</string>
+    <string name="low_light_dont_ask_again">Non chiedere più</string>
 
     <!-- Exposure compensation -->
     <string name="exposure_compensation_label">EV %1$s</string>
