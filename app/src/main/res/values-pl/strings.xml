@@ -87,6 +87,10 @@
     <string name="options_section_scan">Skanowanie</string>
     <string name="options_section_camera">Aparat</string>
     <string name="options_section_app">Aplikacja</string>
+    <string name="options_group_expanded">Rozwinięte</string>
+    <string name="options_group_collapsed">Zwinięte</string>
+    <string name="options_group_expand">Rozwiń</string>
+    <string name="options_group_collapse">Zwiń</string>
     <string name="low_light_prompt_option">Pytaj o latarkę przy słabym oświetleniu</string>
     <string name="low_light_dont_ask_again">Nie pytaj ponownie</string>
 

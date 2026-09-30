@@ -86,6 +86,10 @@
     <string name="options_section_scan">Skanning</string>
     <string name="options_section_camera">Kamera</string>
     <string name="options_section_app">App</string>
+    <string name="options_group_expanded">Utfälld</string>
+    <string name="options_group_collapsed">Hopfälld</string>
+    <string name="options_group_expand">Fäll ut</string>
+    <string name="options_group_collapse">Fäll ihop</string>
     <string name="low_light_prompt_option">Fråga om ficklampa vid svagt ljus</string>
     <string name="low_light_dont_ask_again">Fråga inte igen</string>
 

@@ -88,6 +88,10 @@
     <string name="options_section_scan">Skenování</string>
     <string name="options_section_camera">Fotoaparát</string>
     <string name="options_section_app">Aplikace</string>
+    <string name="options_group_expanded">Rozbaleno</string>
+    <string name="options_group_collapsed">Sbaleno</string>
+    <string name="options_group_expand">Rozbalit</string>
+    <string name="options_group_collapse">Sbalit</string>
     <string name="low_light_prompt_option">Při slabém světle nabídnout svítilnu</string>
     <string name="low_light_dont_ask_again">Už se neptat</string>
 

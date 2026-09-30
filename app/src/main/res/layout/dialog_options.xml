@@ -17,140 +17,175 @@
         <TextView
             android:id="@+id/section_scan"
             style="@style/Widget.MakeACopy.OptionsSection"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/options_section_scan" />
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_skip_ocr"
+        <LinearLayout
+            android:id="@+id/group_scan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/skip_ocr_export_only" />
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_skip_cropping"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/skip_cropping" />
+            <CheckBox
+                android:id="@+id/dialog_checkbox_skip_ocr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/skip_ocr_export_only" />
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_skip_edge_detection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/skip_edge_detection" />
+            <CheckBox
+                android:id="@+id/dialog_checkbox_skip_cropping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/skip_cropping" />
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_analysis_enabled"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/preview_corner_detection" />
+            <CheckBox
+                android:id="@+id/dialog_checkbox_skip_edge_detection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/skip_edge_detection" />
+
+            <CheckBox
+                android:id="@+id/dialog_checkbox_analysis_enabled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/preview_corner_detection" />
+        </LinearLayout>
 
         <!-- Camera: how the picture is taken -->
         <TextView
             android:id="@+id/section_camera"
             style="@style/Widget.MakeACopy.OptionsSection"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/options_section_camera" />
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_exposure_compensation"
+        <LinearLayout
+            android:id="@+id/group_camera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/exposure_compensation_option" />
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_manual_focus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/manual_focus_option" />
+            <CheckBox
+                android:id="@+id/dialog_checkbox_exposure_compensation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/exposure_compensation_option" />
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_focus_quality"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/focus_quality_option" />
+            <CheckBox
+                android:id="@+id/dialog_checkbox_manual_focus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/manual_focus_option" />
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_low_light_prompt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/low_light_prompt_option" />
+            <CheckBox
+                android:id="@+id/dialog_checkbox_focus_quality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/focus_quality_option" />
+
+            <CheckBox
+                android:id="@+id/dialog_checkbox_low_light_prompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/low_light_prompt_option" />
+        </LinearLayout>
 
         <!-- OCR: recognition mode and post-processing (shared with the OCR screen's dialog) -->
         <TextView
             android:id="@+id/section_ocr"
             style="@style/Widget.MakeACopy.OptionsSection"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_ocr" />
 
-        <include layout="@layout/panel_ocr_options" />
+        <LinearLayout
+            android:id="@+id/group_ocr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/panel_ocr_options" />
+        </LinearLayout>
 
         <!-- Export: output options (shared with the Export screen's dialog) -->
         <TextView
             android:id="@+id/section_export"
             style="@style/Widget.MakeACopy.OptionsSection"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_export" />
 
-        <include layout="@layout/panel_export_options" />
+        <LinearLayout
+            android:id="@+id/group_export"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/panel_export_options" />
+        </LinearLayout>
 
         <!-- App: settings that apply everywhere -->
         <TextView
             android:id="@+id/section_app"
             style="@style/Widget.MakeACopy.OptionsSection"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/options_section_app" />
 
-        <CheckBox
-            android:id="@+id/dialog_checkbox_accessibility_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/accessibility_mode_label" />
-
-        <!-- In-app UI language: label plus current value, opens a picker -->
         <LinearLayout
-            android:id="@+id/row_app_language"
+            android:id="@+id/group_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
+            android:orientation="vertical">
 
-            <TextView
+            <CheckBox
+                android:id="@+id/dialog_checkbox_accessibility_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/accessibility_mode_label" />
+
+            <!-- In-app UI language: label plus current value, opens a picker -->
+            <LinearLayout
+                android:id="@+id/row_app_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_language_label"
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                <TextView
+                    android:id="@+id/text_app_language_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:textColorSecondary" />
+            </LinearLayout>
+
+            <!-- Share logs button placed directly under the options (de-emphasized) -->
+            <Button
+                android:id="@+id/button_share_logs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_language_label"
-                android:textAppearance="?attr/textAppearanceBodyLarge" />
-
-            <TextView
-                android:id="@+id/text_app_language_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:textColorSecondary" />
+                android:layout_marginTop="8dp"
+                android:layout_gravity="start"
+                android:text="@string/share_logs"
+                android:textColor="?android:textColorSecondary"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:background="?attr/selectableItemBackgroundBorderless" />
         </LinearLayout>
-
-        <!-- Share logs button placed directly under the options (de-emphasized) -->
-        <Button
-            android:id="@+id/button_share_logs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_gravity="start"
-            android:text="@string/share_logs"
-            android:textColor="?android:textColorSecondary"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
 
     </LinearLayout>
 </ScrollView>

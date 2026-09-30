@@ -88,6 +88,10 @@
     <string name="options_section_scan">Scanare</string>
     <string name="options_section_camera">Cameră</string>
     <string name="options_section_app">Aplicație</string>
+    <string name="options_group_expanded">Extins</string>
+    <string name="options_group_collapsed">Restrâns</string>
+    <string name="options_group_expand">Extinde</string>
+    <string name="options_group_collapse">Restrânge</string>
     <string name="low_light_prompt_option">Întreabă despre lanternă la lumină slabă</string>
     <string name="low_light_dont_ask_again">Nu mai întreba</string>
 

@@ -89,6 +89,10 @@
     <string name="options_section_scan">Numérisation</string>
     <string name="options_section_camera">Caméra</string>
     <string name="options_section_app">Application</string>
+    <string name="options_group_expanded">Déplié</string>
+    <string name="options_group_collapsed">Replié</string>
+    <string name="options_group_expand">Déplier</string>
+    <string name="options_group_collapse">Replier</string>
     <string name="low_light_prompt_option">Proposer la lampe torche en cas de faible luminosité</string>
     <string name="low_light_dont_ask_again">Ne plus demander</string>
 

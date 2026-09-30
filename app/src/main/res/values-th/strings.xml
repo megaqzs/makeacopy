@@ -84,6 +84,10 @@
     <string name="options_section_scan">การสแกน</string>
     <string name="options_section_camera">กล้อง</string>
     <string name="options_section_app">แอป</string>
+    <string name="options_group_expanded">ขยายแล้ว</string>
+    <string name="options_group_collapsed">ยุบแล้ว</string>
+    <string name="options_group_expand">ขยาย</string>
+    <string name="options_group_collapse">ยุบ</string>
     <string name="low_light_prompt_option">ถามเรื่องไฟฉายเมื่อแสงน้อย</string>
     <string name="low_light_dont_ask_again">ไม่ต้องถามอีก</string>
 

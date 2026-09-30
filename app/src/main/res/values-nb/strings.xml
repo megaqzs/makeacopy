@@ -86,6 +86,10 @@
     <string name="options_section_scan">Skanning</string>
     <string name="options_section_camera">Kamera</string>
     <string name="options_section_app">App</string>
+    <string name="options_group_expanded">Utvidet</string>
+    <string name="options_group_collapsed">Skjult</string>
+    <string name="options_group_expand">Utvid</string>
+    <string name="options_group_collapse">Skjul</string>
     <string name="low_light_prompt_option">Spør om lommelykt ved svakt lys</string>
     <string name="low_light_dont_ask_again">Ikke spør igjen</string>
 

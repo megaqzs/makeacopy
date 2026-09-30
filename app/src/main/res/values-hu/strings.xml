@@ -87,6 +87,10 @@
     <string name="options_section_scan">Beolvasás</string>
     <string name="options_section_camera">Kamera</string>
     <string name="options_section_app">Alkalmazás</string>
+    <string name="options_group_expanded">Kibontva</string>
+    <string name="options_group_collapsed">Összecsukva</string>
+    <string name="options_group_expand">Kibontás</string>
+    <string name="options_group_collapse">Összecsukás</string>
     <string name="low_light_prompt_option">Gyenge fénynél kérdezzen rá a zseblámpára</string>
     <string name="low_light_dont_ask_again">Ne kérdezze újra</string>
 

@@ -90,6 +90,10 @@
     <string name="options_section_scan">Scansione</string>
     <string name="options_section_camera">Fotocamera</string>
     <string name="options_section_app">App</string>
+    <string name="options_group_expanded">Espanso</string>
+    <string name="options_group_collapsed">Compresso</string>
+    <string name="options_group_expand">Espandi</string>
+    <string name="options_group_collapse">Comprimi</string>
     <string name="low_light_prompt_option">Chiedi di attivare la torcia con poca luce</string>
     <string name="low_light_dont_ask_again">Non chiedere più</string>
 

@@ -97,6 +97,10 @@
     <string name="options_section_scan">Scan</string>
     <string name="options_section_camera">Camera</string>
     <string name="options_section_app">App</string>
+    <string name="options_group_expanded">Expanded</string>
+    <string name="options_group_collapsed">Collapsed</string>
+    <string name="options_group_expand">Expand</string>
+    <string name="options_group_collapse">Collapse</string>
     <string name="low_light_prompt_option">Ask about flashlight in low light</string>
     <string name="low_light_dont_ask_again">Don\'t ask again</string>
 

@@ -26,9 +26,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Confirming the camera options must leave the export option "Export OCR as separate TXT"
- * ("include_ocr") alone. It used to be overwritten with {@code !skipOcr}, which switched the TXT
- * export on for everyone who confirmed the camera options with OCR enabled.
+ * Confirming the options from the camera screen must not change the export option "Export OCR as
+ * separate TXT" ("include_ocr") behind the user's back. It used to be overwritten with {@code
+ * !skipOcr}, which switched the TXT export on for everyone who confirmed the camera options with
+ * OCR enabled. The shared dialog now writes the checkbox as shown, which keeps the user's choice.
  */
 @RunWith(AndroidJUnit4.class)
 public class CameraOptionsKeepTxtExportOptionTest {
@@ -80,7 +81,7 @@ public class CameraOptionsKeepTxtExportOptionTest {
     confirmCameraOptions();
 
     assertFalse("skip_ocr stays off", prefs.getBoolean("skip_ocr", true));
-    assertFalse("TXT export keeps its default (off)", prefs.contains("include_ocr"));
+    assertFalse("TXT export keeps its default (off)", prefs.getBoolean("include_ocr", false));
   }
 
   @Test

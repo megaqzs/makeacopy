@@ -80,6 +80,10 @@
     <string name="options_section_scan">扫描</string>
     <string name="options_section_camera">相机</string>
     <string name="options_section_app">应用</string>
+    <string name="options_group_expanded">已展开</string>
+    <string name="options_group_collapsed">已收起</string>
+    <string name="options_group_expand">展开</string>
+    <string name="options_group_collapse">收起</string>
     <string name="low_light_prompt_option">光线不足时询问是否开启手电筒</string>
     <string name="low_light_dont_ask_again">不再询问</string>
 

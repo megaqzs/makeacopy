@@ -88,6 +88,10 @@
     <string name="options_section_scan">Scannen</string>
     <string name="options_section_camera">Camera</string>
     <string name="options_section_app">App</string>
+    <string name="options_group_expanded">Uitgeklapt</string>
+    <string name="options_group_collapsed">Ingeklapt</string>
+    <string name="options_group_expand">Uitklappen</string>
+    <string name="options_group_collapse">Inklappen</string>
     <string name="low_light_prompt_option">Bij weinig licht vragen om de zaklamp</string>
     <string name="low_light_dont_ask_again">Niet meer vragen</string>
 

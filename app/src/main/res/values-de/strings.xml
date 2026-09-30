@@ -88,6 +88,10 @@
     <string name="options_section_scan">Scannen</string>
     <string name="options_section_camera">Kamera</string>
     <string name="options_section_app">App</string>
+    <string name="options_group_expanded">Ausgeklappt</string>
+    <string name="options_group_collapsed">Eingeklappt</string>
+    <string name="options_group_expand">Ausklappen</string>
+    <string name="options_group_collapse">Einklappen</string>
     <string name="low_light_prompt_option">Bei wenig Licht nach der Taschenlampe fragen</string>
     <string name="low_light_dont_ask_again">Nicht mehr fragen</string>
 

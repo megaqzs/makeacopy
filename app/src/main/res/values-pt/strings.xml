@@ -89,6 +89,10 @@
     <string name="options_section_scan">Digitalização</string>
     <string name="options_section_camera">Câmara</string>
     <string name="options_section_app">Aplicação</string>
+    <string name="options_group_expanded">Expandido</string>
+    <string name="options_group_collapsed">Recolhido</string>
+    <string name="options_group_expand">Expandir</string>
+    <string name="options_group_collapse">Recolher</string>
     <string name="low_light_prompt_option">Perguntar pela lanterna com pouca luz</string>
     <string name="low_light_dont_ask_again">Não perguntar novamente</string>
 

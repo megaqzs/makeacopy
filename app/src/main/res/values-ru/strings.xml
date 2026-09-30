@@ -88,6 +88,10 @@
     <string name="options_section_scan">Сканирование</string>
     <string name="options_section_camera">Камера</string>
     <string name="options_section_app">Приложение</string>
+    <string name="options_group_expanded">Развёрнуто</string>
+    <string name="options_group_collapsed">Свёрнуто</string>
+    <string name="options_group_expand">Развернуть</string>
+    <string name="options_group_collapse">Свернуть</string>
     <string name="low_light_prompt_option">Предлагать фонарик при слабом освещении</string>
     <string name="low_light_dont_ask_again">Больше не спрашивать</string>
 

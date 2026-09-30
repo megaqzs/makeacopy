@@ -81,6 +81,10 @@
     <string name="options_section_scan">Σάρωση</string>
     <string name="options_section_camera">Κάμερα</string>
     <string name="options_section_app">Εφαρμογή</string>
+    <string name="options_group_expanded">Ανεπτυγμένο</string>
+    <string name="options_group_collapsed">Συμπτυγμένο</string>
+    <string name="options_group_expand">Ανάπτυξη</string>
+    <string name="options_group_collapse">Σύμπτυξη</string>
     <string name="low_light_prompt_option">Ερώτηση για τον φακό σε χαμηλό φωτισμό</string>
     <string name="low_light_dont_ask_again">Να μην ερωτηθώ ξανά</string>
 

@@ -139,6 +139,9 @@ public final class DialogUtils {
     com.google.android.material.bottomsheet.BottomSheetBehavior<?> behavior = dialog.getBehavior();
     behavior.setState(com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED);
     behavior.setSkipCollapsed(true);
+    // Not draggable: pulling down at the top of a long option list used to dismiss the sheet
+    // mid-way through editing. Cancel, the system back gesture and a tap outside still close it.
+    behavior.setDraggable(false);
     return dialog;
   }
 

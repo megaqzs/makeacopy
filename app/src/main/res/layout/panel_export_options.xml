@@ -16,9 +16,9 @@
     <!-- Format selection moved inline to the Export screen (segmented PDF | JPEG buttons). -->
 
     <TextView
+        style="@style/Widget.MakeACopy.OptionsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
         android:text="@string/document_cleanup_title" />
 
     <RadioGroup
@@ -63,15 +63,15 @@
         android:visibility="visible">
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsSubsection"
             android:id="@+id/dialog_pdf_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp"
             android:text="@string/export_format_pdf"
-            android:textStyle="bold"
             android:visibility="gone" />
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/output_color_title" />
@@ -110,9 +110,9 @@
         </RadioGroup>
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
             android:text="@string/page_format_label" />
 
         <RadioGroup
@@ -147,9 +147,9 @@
         </RadioGroup>
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
             android:text="@string/pdf_text_layer_mode_title" />
 
         <RadioGroup
@@ -173,9 +173,9 @@
         </RadioGroup>
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
             android:text="@string/dpi_settings_label" />
 
         <RadioGroup
@@ -220,15 +220,15 @@
         android:visibility="gone">
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsSubsection"
             android:id="@+id/dialog_jpeg_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp"
             android:text="@string/export_format_jpeg"
-            android:textStyle="bold"
             android:visibility="gone" />
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/output_color_title" />
@@ -269,11 +269,10 @@
         android:visibility="gone">
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsSubsection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/inbox_mode"
-            android:textStyle="bold"
-            android:paddingBottom="4dp" />
+            android:text="@string/inbox_mode" />
 
         <CheckBox
             android:id="@+id/dialog_checkbox_inbox_enabled"
@@ -308,10 +307,10 @@
             android:text="@string/inbox_clear" />
 
         <TextView
+            style="@style/Widget.MakeACopy.OptionsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/inbox_filename_format"
-            android:paddingTop="8dp" />
+            android:text="@string/inbox_filename_format" />
 
         <Spinner
             android:id="@+id/dialog_inbox_filename_spinner"

@@ -91,6 +91,10 @@
     <string name="options_section_scan">Escaneo</string>
     <string name="options_section_camera">Cámara</string>
     <string name="options_section_app">Aplicación</string>
+    <string name="options_group_expanded">Desplegado</string>
+    <string name="options_group_collapsed">Contraído</string>
+    <string name="options_group_expand">Desplegar</string>
+    <string name="options_group_collapse">Contraer</string>
     <string name="low_light_prompt_option">Preguntar por la linterna con poca luz</string>
     <string name="low_light_dont_ask_again">No volver a preguntar</string>
 

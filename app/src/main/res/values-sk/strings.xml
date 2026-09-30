@@ -90,6 +90,10 @@
     <string name="options_section_scan">Skenovanie</string>
     <string name="options_section_camera">Fotoaparát</string>
     <string name="options_section_app">Aplikácia</string>
+    <string name="options_group_expanded">Rozbalené</string>
+    <string name="options_group_collapsed">Zbalené</string>
+    <string name="options_group_expand">Rozbaliť</string>
+    <string name="options_group_collapse">Zbaliť</string>
     <string name="low_light_prompt_option">Pri slabom svetle ponúknuť baterku</string>
     <string name="low_light_dont_ask_again">Už sa nepýtať</string>
 

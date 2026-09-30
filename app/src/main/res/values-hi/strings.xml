@@ -79,6 +79,10 @@
     <string name="options_section_scan">स्कैन</string>
     <string name="options_section_camera">कैमरा</string>
     <string name="options_section_app">ऐप</string>
+    <string name="options_group_expanded">विस्तारित</string>
+    <string name="options_group_collapsed">संक्षिप्त</string>
+    <string name="options_group_expand">विस्तार करें</string>
+    <string name="options_group_collapse">संक्षिप्त करें</string>
     <string name="low_light_prompt_option">कम रोशनी में फ़्लैशलाइट के बारे में पूछें</string>
     <string name="low_light_dont_ask_again">फिर से न पूछें</string>
 

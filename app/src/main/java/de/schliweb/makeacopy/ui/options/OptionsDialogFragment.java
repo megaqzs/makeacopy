@@ -57,8 +57,13 @@ public class OptionsDialogFragment extends DialogFragment {
 
   private static final String FRAGMENT_TAG = "OptionsDialogFragment";
   private static final String ARG_SECTION = "section";
+  private static final String SAVED_EXPANDED = "expanded_sections";
 
-  /** The groups of the dialog; each screen opens the dialog at its own group. */
+  /**
+   * The groups of the dialog, in workflow order. Each screen opens the dialog at its own group and
+   * sees only that group and the ones after it: what has already happened to the current document
+   * (the scan, the camera) cannot be changed from the OCR or Export screen.
+   */
   public enum Section {
     SCAN,
     CAMERA,
@@ -74,7 +79,7 @@ public class OptionsDialogFragment extends DialogFragment {
     show(fm, Section.SCAN);
   }
 
-  /** Opens the dialog scrolled to {@code section}. */
+  /** Opens the dialog at {@code section}, showing that group and the groups after it. */
   public static void show(@NonNull FragmentManager fm, @NonNull Section section) {
     // Guard against rapid double-taps on the options button: if a dialog with this tag
     // is already added, do not show a second instance. showNow() commits synchronously,
@@ -107,13 +112,83 @@ public class OptionsDialogFragment extends DialogFragment {
     };
   }
 
-  /** Scrolls the sheet so that the requested group's heading is at the top. */
-  private static void scrollToSection(View view, Section section) {
-    if (section == Section.SCAN) return;
-    android.widget.ScrollView scroll = view.findViewById(R.id.options_scroll);
-    View heading = view.findViewById(headingId(section));
-    if (scroll == null || heading == null) return;
-    scroll.post(() -> scroll.scrollTo(0, heading.getTop()));
+  private static int groupId(Section section) {
+    return switch (section) {
+      case SCAN -> R.id.group_scan;
+      case CAMERA -> R.id.group_camera;
+      case OCR -> R.id.group_ocr;
+      case EXPORT -> R.id.group_export;
+      case APP -> R.id.group_app;
+    };
+  }
+
+  /** The groups that are open; only the requested one at first, so the sheet stays short. */
+  private final java.util.EnumSet<Section> expanded = java.util.EnumSet.noneOf(Section.class);
+
+  /**
+   * Makes every group heading a row that opens or closes its group. The group opened at first is
+   * the one the calling screen asked for (or those restored from {@code savedInstanceState}).
+   */
+  private void setupGroups(View view, @Nullable Bundle savedInstanceState) {
+    expanded.clear();
+    String[] saved =
+        savedInstanceState != null ? savedInstanceState.getStringArray(SAVED_EXPANDED) : null;
+    if (saved != null) {
+      for (String name : saved) {
+        try {
+          expanded.add(Section.valueOf(name));
+        } catch (IllegalArgumentException ignore) {
+          // Stale state; ignore
+        }
+      }
+    } else {
+      expanded.add(requestedSection());
+    }
+    Section first = requestedSection();
+    for (Section section : Section.values()) {
+      TextView heading = view.findViewById(headingId(section));
+      if (section.compareTo(first) < 0) {
+        // A step of the workflow that lies behind the calling screen: not offered from here
+        heading.setVisibility(View.GONE);
+        view.findViewById(groupId(section)).setVisibility(View.GONE);
+        expanded.remove(section);
+        continue;
+      }
+      androidx.core.view.ViewCompat.setAccessibilityHeading(heading, true);
+      heading.setOnClickListener(
+          v -> {
+            if (!expanded.remove(section)) expanded.add(section);
+            showGroup(view, section);
+          });
+      showGroup(view, section);
+    }
+  }
+
+  private void showGroup(View view, Section section) {
+    boolean open = expanded.contains(section);
+    view.findViewById(groupId(section)).setVisibility(open ? View.VISIBLE : View.GONE);
+    TextView heading = view.findViewById(headingId(section));
+    heading.setCompoundDrawablesRelativeWithIntrinsicBounds(
+        0, 0, open ? R.drawable.ic_arrow_drop_up : R.drawable.ic_arrow_drop_down, 0);
+    androidx.core.view.ViewCompat.setStateDescription(
+        heading,
+        getString(open ? R.string.options_group_expanded : R.string.options_group_collapsed));
+    // Screen readers then offer "double tap to collapse" instead of "double tap to activate"
+    androidx.core.view.ViewCompat.replaceAccessibilityAction(
+        heading,
+        androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
+            .ACTION_CLICK,
+        getString(open ? R.string.options_group_collapse : R.string.options_group_expand),
+        null);
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    String[] names = new String[expanded.size()];
+    int i = 0;
+    for (Section s : expanded) names[i++] = s.name();
+    outState.putStringArray(SAVED_EXPANDED, names);
   }
 
   /**
@@ -456,7 +531,7 @@ public class OptionsDialogFragment extends DialogFragment {
     dependencies.run();
     cbSkip.setOnCheckedChangeListener((b, checked) -> dependencies.run());
     cbSkipCropping.setOnCheckedChangeListener((b, checked) -> dependencies.run());
-    scrollToSection(view, requestedSection());
+    setupGroups(view, savedInstanceState);
 
     // App language row: shows the current choice and opens the picker
     View languageRow = view.findViewById(R.id.row_app_language);
