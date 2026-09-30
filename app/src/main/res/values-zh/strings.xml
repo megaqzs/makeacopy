@@ -80,6 +80,7 @@
     <string name="options_section_scan">扫描</string>
     <string name="options_section_camera">相机</string>
     <string name="options_section_app">应用</string>
+    <string name="options_section_library">文库</string>
     <string name="options_group_expanded">已展开</string>
     <string name="options_group_collapsed">已收起</string>
     <string name="options_group_expand">展开</string>
@@ -455,7 +456,6 @@
     <string name="cleanup_max_age_days">最大保留时间（天）</string>
     <string name="cleanup_max_count">最大数量</string>
     <string name="cleanup_max_storage_mb">最大存储空间（MB）</string>
-    <string name="cleanup_settings_saved">清理设置已保存</string>
     <string name="inbox_mode">收件箱模式</string>
     <string name="inbox_mode_enable">启用默认导出文件夹</string>
     <string name="inbox_select_folder">选择文件夹</string>

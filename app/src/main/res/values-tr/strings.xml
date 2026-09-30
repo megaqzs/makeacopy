@@ -87,6 +87,7 @@
     <string name="options_section_scan">Tarama</string>
     <string name="options_section_camera">Kamera</string>
     <string name="options_section_app">Uygulama</string>
+    <string name="options_section_library">Kitaplık</string>
     <string name="options_group_expanded">Genişletildi</string>
     <string name="options_group_collapsed">Daraltıldı</string>
     <string name="options_group_expand">Genişlet</string>
@@ -475,7 +476,6 @@
     <string name="cleanup_max_age_days">Maksimum yaş (gün)</string>
     <string name="cleanup_max_count">Maksimum sayı</string>
     <string name="cleanup_max_storage_mb">Maksimum depolama (MB)</string>
-    <string name="cleanup_settings_saved">Temizleme ayarları kaydedildi</string>
     <string name="inbox_mode">Gelen Kutusu Modu</string>
     <string name="inbox_mode_enable">Varsayılan dışa aktarma klasörünü etkinleştir</string>
     <string name="inbox_select_folder">Klasör seç</string>

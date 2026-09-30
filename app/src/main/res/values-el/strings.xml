@@ -81,6 +81,7 @@
     <string name="options_section_scan">Σάρωση</string>
     <string name="options_section_camera">Κάμερα</string>
     <string name="options_section_app">Εφαρμογή</string>
+    <string name="options_section_library">Βιβλιοθήκη</string>
     <string name="options_group_expanded">Ανεπτυγμένο</string>
     <string name="options_group_collapsed">Συμπτυγμένο</string>
     <string name="options_group_expand">Ανάπτυξη</string>
@@ -454,7 +455,6 @@
     <string name="cleanup_max_age_days">Μέγιστη ηλικία (ημέρες)</string>
     <string name="cleanup_max_count">Μέγιστο πλήθος</string>
     <string name="cleanup_max_storage_mb">Μέγιστος αποθηκευτικός χώρος (MB)</string>
-    <string name="cleanup_settings_saved">Οι ρυθμίσεις καθαρισμού αποθηκεύτηκαν</string>
 
     <!-- Inbox Mode -->
     <string name="inbox_mode">Λειτουργία Inbox</string>

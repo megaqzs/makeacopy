@@ -85,6 +85,7 @@
     <string name="options_section_scan">المسح</string>
     <string name="options_section_camera">الكاميرا</string>
     <string name="options_section_app">التطبيق</string>
+    <string name="options_section_library">المكتبة</string>
     <string name="options_group_expanded">موسّع</string>
     <string name="options_group_collapsed">مطوي</string>
     <string name="options_group_expand">توسيع</string>
@@ -471,7 +472,6 @@
     <string name="cleanup_max_age_days">الحد الأقصى للعمر (بالأيام)</string>
     <string name="cleanup_max_count">الحد الأقصى للعدد</string>
     <string name="cleanup_max_storage_mb">الحد الأقصى للتخزين (ميغابايت)</string>
-    <string name="cleanup_settings_saved">تم حفظ إعدادات التنظيف</string>
     <string name="inbox_mode">وضع صندوق الوارد</string>
     <string name="inbox_mode_enable">تفعيل مجلد التصدير الافتراضي</string>
     <string name="inbox_select_folder">اختيار مجلد</string>

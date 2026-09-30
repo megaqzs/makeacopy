@@ -88,6 +88,7 @@
     <string name="options_section_scan">Scanare</string>
     <string name="options_section_camera">Cameră</string>
     <string name="options_section_app">Aplicație</string>
+    <string name="options_section_library">Bibliotecă</string>
     <string name="options_group_expanded">Extins</string>
     <string name="options_group_collapsed">Restrâns</string>
     <string name="options_group_expand">Extinde</string>
@@ -486,7 +487,6 @@
     <string name="cleanup_max_age_days">Vechime maximă (zile)</string>
     <string name="cleanup_max_count">Număr maxim</string>
     <string name="cleanup_max_storage_mb">Spațiu maxim de stocare (MB)</string>
-    <string name="cleanup_settings_saved">Setările de curățare au fost salvate</string>
     <string name="inbox_mode">Mod Inbox</string>
     <string name="inbox_mode_enable">Activează folderul implicit de export</string>
     <string name="inbox_select_folder">Selectează folder</string>

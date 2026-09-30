@@ -91,6 +91,7 @@
     <string name="options_section_scan">Escaneo</string>
     <string name="options_section_camera">Cámara</string>
     <string name="options_section_app">Aplicación</string>
+    <string name="options_section_library">Biblioteca</string>
     <string name="options_group_expanded">Desplegado</string>
     <string name="options_group_collapsed">Contraído</string>
     <string name="options_group_expand">Desplegar</string>
@@ -489,7 +490,6 @@
     <string name="cleanup_max_age_days">Antigüedad máxima (días)</string>
     <string name="cleanup_max_count">Cantidad máxima</string>
     <string name="cleanup_max_storage_mb">Almacenamiento máximo (MB)</string>
-    <string name="cleanup_settings_saved">Configuración de limpieza guardada</string>
     <string name="inbox_mode">Modo Bandeja de entrada</string>
     <string name="inbox_mode_enable">Activar carpeta de exportación predeterminada</string>
     <string name="inbox_select_folder">Seleccionar carpeta</string>

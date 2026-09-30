@@ -88,6 +88,7 @@
     <string name="options_section_scan">Scannen</string>
     <string name="options_section_camera">Camera</string>
     <string name="options_section_app">App</string>
+    <string name="options_section_library">Bibliotheek</string>
     <string name="options_group_expanded">Uitgeklapt</string>
     <string name="options_group_collapsed">Ingeklapt</string>
     <string name="options_group_expand">Uitklappen</string>
@@ -480,7 +481,6 @@
     <string name="cleanup_max_age_days">Maximale leeftijd (dagen)</string>
     <string name="cleanup_max_count">Maximaal aantal</string>
     <string name="cleanup_max_storage_mb">Maximale opslagruimte (MB)</string>
-    <string name="cleanup_settings_saved">Opschoningsinstellingen opgeslagen</string>
     <string name="inbox_mode">Inbox-modus</string>
     <string name="inbox_mode_enable">Standaard exportmap inschakelen</string>
     <string name="inbox_select_folder">Map selecteren</string>

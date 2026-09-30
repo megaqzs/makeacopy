@@ -88,6 +88,7 @@
     <string name="options_section_scan">Skenování</string>
     <string name="options_section_camera">Fotoaparát</string>
     <string name="options_section_app">Aplikace</string>
+    <string name="options_section_library">Knihovna</string>
     <string name="options_group_expanded">Rozbaleno</string>
     <string name="options_group_collapsed">Sbaleno</string>
     <string name="options_group_expand">Rozbalit</string>
@@ -479,7 +480,6 @@
     <string name="cleanup_max_age_days">Maximální stáří (dny)</string>
     <string name="cleanup_max_count">Maximální počet</string>
     <string name="cleanup_max_storage_mb">Maximální úložiště (MB)</string>
-    <string name="cleanup_settings_saved">Nastavení čištění uloženo</string>
     <string name="inbox_mode">Režim Inbox</string>
     <string name="inbox_mode_enable">Povolit výchozí složku pro export</string>
     <string name="inbox_select_folder">Vybrat složku</string>

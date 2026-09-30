@@ -30,6 +30,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import de.schliweb.makeacopy.BuildConfig;
 import de.schliweb.makeacopy.R;
 import de.schliweb.makeacopy.ui.export.ExportOptionsPanel;
+import de.schliweb.makeacopy.ui.library.LibraryOptionsPanel;
 import de.schliweb.makeacopy.ui.ocr.OcrOptionsPanel;
 import de.schliweb.makeacopy.utils.ui.AppLanguage;
 import de.schliweb.makeacopy.utils.ui.DialogUtils;
@@ -37,8 +38,8 @@ import java.util.List;
 
 /**
  * The options dialog of the camera screen, which is the start of the workflow and therefore the one
- * place that shows every setting: Scan, Camera, OCR, Export and App. The OCR and Export groups are
- * the same panels the OCR and Export screens open, so each setting exists once.
+ * place that shows every setting: Scan, Camera, OCR, Export, Library and App. The OCR and Export
+ * groups are the same panels the OCR and Export screens open, so each setting exists once.
  */
 public class OptionsDialogFragment extends DialogFragment {
 
@@ -69,6 +70,8 @@ public class OptionsDialogFragment extends DialogFragment {
     CAMERA,
     OCR,
     EXPORT,
+    /** Runs beside the workflow: shown wherever the groups after it are shown. */
+    LIBRARY,
     APP
   }
 
@@ -108,6 +111,7 @@ public class OptionsDialogFragment extends DialogFragment {
       case CAMERA -> R.id.section_camera;
       case OCR -> R.id.section_ocr;
       case EXPORT -> R.id.section_export;
+      case LIBRARY -> R.id.section_library;
       case APP -> R.id.section_app;
     };
   }
@@ -118,6 +122,7 @@ public class OptionsDialogFragment extends DialogFragment {
       case CAMERA -> R.id.group_camera;
       case OCR -> R.id.group_ocr;
       case EXPORT -> R.id.group_export;
+      case LIBRARY -> R.id.group_library;
       case APP -> R.id.group_app;
     };
   }
@@ -195,14 +200,19 @@ public class OptionsDialogFragment extends DialogFragment {
    * Greys out what the other choices make irrelevant, so the dialog cannot show contradicting
    * settings: without OCR there is nothing to auto-rotate, post-process, export as text or put into
    * a PDF text layer; without the crop screen there is no edge detection to skip.
+   *
+   * <p>Only while the Scan group is shown: opened from the OCR or Export screen, the document is
+   * past that step, so a saved "skip OCR" must neither grey out the OCR options nor be hidden
+   * behind them.
    */
   private static void applyDependencies(
+      boolean scanGroupShown,
       CheckBox cbSkipOcr,
       CheckBox cbSkipCropping,
       CheckBox cbSkipEdgeDetection,
       OcrOptionsPanel ocrPanel,
       ExportOptionsPanel exportPanel) {
-    boolean ocr = !cbSkipOcr.isChecked();
+    boolean ocr = !scanGroupShown || !cbSkipOcr.isChecked();
     ocrPanel.setEnabled(ocr);
     exportPanel.setOcrDependentEnabled(ocr);
     de.schliweb.makeacopy.utils.ui.UIUtils.setEnabledWithAlpha(
@@ -487,6 +497,8 @@ public class OptionsDialogFragment extends DialogFragment {
     ocrPanel.bind(ctx);
     exportPanel = new ExportOptionsPanel(view);
     exportPanel.bind(ctx, ExportOptionsPanel.Formats.ALL, inboxFolderLauncher);
+    LibraryOptionsPanel libraryPanel = new LibraryOptionsPanel(view);
+    libraryPanel.bind(ctx);
 
     CheckBox cbSkip = view.findViewById(R.id.dialog_checkbox_skip_ocr);
     CheckBox cbSkipCropping = view.findViewById(R.id.dialog_checkbox_skip_cropping);
@@ -526,8 +538,11 @@ public class OptionsDialogFragment extends DialogFragment {
       }
     }
 
+    boolean scanGroupShown = requestedSection() == Section.SCAN;
     Runnable dependencies =
-        () -> applyDependencies(cbSkip, cbSkipCropping, cbSkipEdgeDetection, ocrPanel, exportPanel);
+        () ->
+            applyDependencies(
+                scanGroupShown, cbSkip, cbSkipCropping, cbSkipEdgeDetection, ocrPanel, exportPanel);
     dependencies.run();
     cbSkip.setOnCheckedChangeListener((b, checked) -> dependencies.run());
     cbSkipCropping.setOnCheckedChangeListener((b, checked) -> dependencies.run());
@@ -592,6 +607,7 @@ public class OptionsDialogFragment extends DialogFragment {
             }
           }
           Bundle exportResult = exportPanel.apply(ctx);
+          libraryPanel.apply(ctx);
 
           Bundle result = new Bundle();
           result.putBoolean(BUNDLE_SKIP_OCR, skip);

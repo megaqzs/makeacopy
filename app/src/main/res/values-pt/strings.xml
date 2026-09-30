@@ -89,6 +89,7 @@
     <string name="options_section_scan">Digitalização</string>
     <string name="options_section_camera">Câmara</string>
     <string name="options_section_app">Aplicação</string>
+    <string name="options_section_library">Biblioteca</string>
     <string name="options_group_expanded">Expandido</string>
     <string name="options_group_collapsed">Recolhido</string>
     <string name="options_group_expand">Expandir</string>
@@ -478,7 +479,6 @@
     <string name="cleanup_max_age_days">Idade máxima (dias)</string>
     <string name="cleanup_max_count">Quantidade máxima</string>
     <string name="cleanup_max_storage_mb">Armazenamento máximo (MB)</string>
-    <string name="cleanup_settings_saved">Configurações de limpeza salvas</string>
     <string name="inbox_mode">Modo Caixa de entrada</string>
     <string name="inbox_mode_enable">Ativar pasta de exportação padrão</string>
     <string name="inbox_select_folder">Selecionar pasta</string>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The library options (cleanup of completed scans), without padding or scrolling, embedded in
+     the options dialog. LibraryOptionsPanel binds this layout. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/library_options_panel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Widget.MakeACopy.OptionsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cleanup_policy" />
+
+    <RadioGroup
+        android:id="@+id/dialog_cleanup_policy_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/dialog_cleanup_policy_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/cleanup_policy_none" />
+
+        <RadioButton
+            android:id="@+id/dialog_cleanup_policy_max_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cleanup_policy_max_age" />
+
+        <RadioButton
+            android:id="@+id/dialog_cleanup_policy_max_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cleanup_policy_max_count" />
+
+        <RadioButton
+            android:id="@+id/dialog_cleanup_policy_max_storage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cleanup_policy_max_storage" />
+
+        <RadioButton
+            android:id="@+id/dialog_cleanup_policy_combined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cleanup_policy_combined" />
+    </RadioGroup>
+
+    <!-- Each limit is only editable while a policy uses it -->
+    <TextView
+        android:id="@+id/dialog_cleanup_max_age_label"
+        style="@style/Widget.MakeACopy.OptionsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/dialog_cleanup_max_age"
+        android:text="@string/cleanup_max_age_days" />
+
+    <EditText
+        android:id="@+id/dialog_cleanup_max_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="6" />
+
+    <TextView
+        android:id="@+id/dialog_cleanup_max_count_label"
+        style="@style/Widget.MakeACopy.OptionsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/dialog_cleanup_max_count"
+        android:text="@string/cleanup_max_count" />
+
+    <EditText
+        android:id="@+id/dialog_cleanup_max_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="6" />
+
+    <TextView
+        android:id="@+id/dialog_cleanup_max_storage_label"
+        style="@style/Widget.MakeACopy.OptionsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/dialog_cleanup_max_storage"
+        android:text="@string/cleanup_max_storage_mb" />
+
+    <EditText
+        android:id="@+id/dialog_cleanup_max_storage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="6" />
+
+</LinearLayout>

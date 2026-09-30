@@ -90,6 +90,7 @@
     <string name="options_section_scan">Scansione</string>
     <string name="options_section_camera">Fotocamera</string>
     <string name="options_section_app">App</string>
+    <string name="options_section_library">Libreria</string>
     <string name="options_group_expanded">Espanso</string>
     <string name="options_group_collapsed">Compresso</string>
     <string name="options_group_expand">Espandi</string>
@@ -483,7 +484,6 @@
     <string name="cleanup_max_age_days">Età massima (giorni)</string>
     <string name="cleanup_max_count">Numero massimo</string>
     <string name="cleanup_max_storage_mb">Spazio di archiviazione massimo (MB)</string>
-    <string name="cleanup_settings_saved">Impostazioni di pulizia salvate</string>
     <string name="inbox_mode">Modalità Inbox</string>
     <string name="inbox_mode_enable">Attiva cartella di esportazione predefinita</string>
     <string name="inbox_select_folder">Seleziona cartella</string>

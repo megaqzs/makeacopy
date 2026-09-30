@@ -97,6 +97,7 @@
     <string name="options_section_scan">Scan</string>
     <string name="options_section_camera">Camera</string>
     <string name="options_section_app">App</string>
+    <string name="options_section_library">Library</string>
     <string name="options_group_expanded">Expanded</string>
     <string name="options_group_collapsed">Collapsed</string>
     <string name="options_group_expand">Expand</string>
@@ -490,7 +491,6 @@
     <string name="cleanup_max_age_days">Max age (days)</string>
     <string name="cleanup_max_count">Max count</string>
     <string name="cleanup_max_storage_mb">Max storage (MB)</string>
-    <string name="cleanup_settings_saved">Cleanup settings saved</string>
 
     <!-- Inbox Mode -->
     <string name="inbox_mode">Inbox Mode</string>

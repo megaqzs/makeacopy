@@ -88,6 +88,7 @@
     <string name="options_section_scan">Сканирование</string>
     <string name="options_section_camera">Камера</string>
     <string name="options_section_app">Приложение</string>
+    <string name="options_section_library">Библиотека</string>
     <string name="options_group_expanded">Развёрнуто</string>
     <string name="options_group_collapsed">Свёрнуто</string>
     <string name="options_group_expand">Развернуть</string>
@@ -480,7 +481,6 @@
     <string name="cleanup_max_age_days">Максимальный срок (дни)</string>
     <string name="cleanup_max_count">Максимальное количество</string>
     <string name="cleanup_max_storage_mb">Максимальный объём хранения (МБ)</string>
-    <string name="cleanup_settings_saved">Настройки очистки сохранены</string>
     <string name="inbox_mode">Режим Входящие</string>
     <string name="inbox_mode_enable">Включить папку экспорта по умолчанию</string>
     <string name="inbox_select_folder">Выбрать папку</string>

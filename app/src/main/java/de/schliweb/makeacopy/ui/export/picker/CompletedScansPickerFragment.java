@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.schliweb.makeacopy.R;
 import de.schliweb.makeacopy.data.CompletedScansRegistry;
 import de.schliweb.makeacopy.ui.export.session.CompletedScan;
+import de.schliweb.makeacopy.ui.options.OptionsDialogFragment;
 import de.schliweb.makeacopy.utils.ui.DialogUtils;
 import de.schliweb.makeacopy.utils.ui.UIUtils;
 import java.util.ArrayList;
@@ -124,7 +125,9 @@ public class CompletedScansPickerFragment extends Fragment
       buttonSelectNone.setOnClickListener(v -> selectAllEligible(false));
     if (buttonCleanupSettings != null)
       buttonCleanupSettings.setOnClickListener(
-          v -> DialogUtils.showCleanupSettingsDialog(requireContext()));
+          v ->
+              OptionsDialogFragment.show(
+                  getParentFragmentManager(), OptionsDialogFragment.Section.LIBRARY));
 
     loadItems();
     return root;

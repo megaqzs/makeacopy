@@ -84,6 +84,7 @@
     <string name="options_section_scan">การสแกน</string>
     <string name="options_section_camera">กล้อง</string>
     <string name="options_section_app">แอป</string>
+    <string name="options_section_library">คลังเอกสาร</string>
     <string name="options_group_expanded">ขยายแล้ว</string>
     <string name="options_group_collapsed">ยุบแล้ว</string>
     <string name="options_group_expand">ขยาย</string>
@@ -471,7 +472,6 @@
     <string name="cleanup_max_age_days">อายุสูงสุด (วัน)</string>
     <string name="cleanup_max_count">จำนวนสูงสุด</string>
     <string name="cleanup_max_storage_mb">พื้นที่จัดเก็บสูงสุด (MB)</string>
-    <string name="cleanup_settings_saved">บันทึกการตั้งค่าการล้างข้อมูลแล้ว</string>
     <string name="inbox_mode">โหมดกล่องขาเข้า</string>
     <string name="inbox_mode_enable">เปิดใช้โฟลเดอร์ส่งออกเริ่มต้น</string>
     <string name="inbox_select_folder">เลือกโฟลเดอร์</string>

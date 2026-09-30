@@ -24,6 +24,7 @@ import de.schliweb.makeacopy.data.library.CollectionsRepository;
 import de.schliweb.makeacopy.data.library.ExistingScansIndexer;
 import de.schliweb.makeacopy.data.library.ScanEntity;
 import de.schliweb.makeacopy.data.library.ScansRepository;
+import de.schliweb.makeacopy.ui.options.OptionsDialogFragment;
 import de.schliweb.makeacopy.utils.infra.FeatureFlags;
 import de.schliweb.makeacopy.utils.ui.A11yUtils;
 import de.schliweb.makeacopy.utils.ui.DialogUtils;
@@ -375,7 +376,7 @@ public class ScansLibraryFragment extends Fragment {
   }
 
   private void showCleanupSettingsDialog() {
-    DialogUtils.showCleanupSettingsDialog(requireContext());
+    OptionsDialogFragment.show(getParentFragmentManager(), OptionsDialogFragment.Section.LIBRARY);
   }
 
   /**

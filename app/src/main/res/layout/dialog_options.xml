@@ -125,6 +125,23 @@
             <include layout="@layout/panel_export_options" />
         </LinearLayout>
 
+        <!-- Library: cleanup of completed scans (shared with the library's gear button) -->
+        <TextView
+            android:id="@+id/section_library"
+            style="@style/Widget.MakeACopy.OptionsSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/options_section_library" />
+
+        <LinearLayout
+            android:id="@+id/group_library"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/panel_library_options" />
+        </LinearLayout>
+
         <!-- App: settings that apply everywhere -->
         <TextView
             android:id="@+id/section_app"

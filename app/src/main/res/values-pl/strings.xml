@@ -87,6 +87,7 @@
     <string name="options_section_scan">Skanowanie</string>
     <string name="options_section_camera">Aparat</string>
     <string name="options_section_app">Aplikacja</string>
+    <string name="options_section_library">Biblioteka</string>
     <string name="options_group_expanded">Rozwinięte</string>
     <string name="options_group_collapsed">Zwinięte</string>
     <string name="options_group_expand">Rozwiń</string>
@@ -480,7 +481,6 @@
     <string name="cleanup_max_age_days">Maksymalny wiek (dni)</string>
     <string name="cleanup_max_count">Maksymalna liczba</string>
     <string name="cleanup_max_storage_mb">Maksymalna przestrzeń (MB)</string>
-    <string name="cleanup_settings_saved">Ustawienia czyszczenia zapisane</string>
     <string name="inbox_mode">Tryb Inbox</string>
     <string name="inbox_mode_enable">Włącz domyślny folder eksportu</string>
     <string name="inbox_select_folder">Wybierz folder</string>

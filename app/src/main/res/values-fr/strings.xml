@@ -89,6 +89,7 @@
     <string name="options_section_scan">Numérisation</string>
     <string name="options_section_camera">Caméra</string>
     <string name="options_section_app">Application</string>
+    <string name="options_section_library">Bibliothèque</string>
     <string name="options_group_expanded">Déplié</string>
     <string name="options_group_collapsed">Replié</string>
     <string name="options_group_expand">Déplier</string>
@@ -480,7 +481,6 @@
     <string name="cleanup_max_age_days">Ancienneté maximale (jours)</string>
     <string name="cleanup_max_count">Nombre maximal</string>
     <string name="cleanup_max_storage_mb">Espace de stockage maximal (Mo)</string>
-    <string name="cleanup_settings_saved">Paramètres de nettoyage enregistrés</string>
     <string name="inbox_mode">Mode Boîte de réception</string>
     <string name="inbox_mode_enable">Activer le dossier d\'exportation par défaut</string>
     <string name="inbox_select_folder">Sélectionner un dossier</string>

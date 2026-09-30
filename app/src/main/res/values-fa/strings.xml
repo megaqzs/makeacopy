@@ -88,6 +88,7 @@
     <string name="options_section_scan">اسکن</string>
     <string name="options_section_camera">دوربین</string>
     <string name="options_section_app">برنامه</string>
+    <string name="options_section_library">کتابخانه</string>
     <string name="options_group_expanded">باز شده</string>
     <string name="options_group_collapsed">بسته شده</string>
     <string name="options_group_expand">باز کردن</string>
@@ -474,7 +475,6 @@
     <string name="cleanup_max_age_days">حداکثر سن (روز)</string>
     <string name="cleanup_max_count">حداکثر تعداد</string>
     <string name="cleanup_max_storage_mb">حداکثر فضای ذخیره‌سازی (مگابایت)</string>
-    <string name="cleanup_settings_saved">تنظیمات پاک‌سازی ذخیره شد</string>
     <string name="inbox_mode">حالت صندوق ورودی</string>
     <string name="inbox_mode_enable">فعال‌سازی پوشه پیش‌فرض خروجی</string>
     <string name="inbox_select_folder">انتخاب پوشه</string>

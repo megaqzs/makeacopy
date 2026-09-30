@@ -86,6 +86,7 @@
     <string name="options_section_scan">Skanning</string>
     <string name="options_section_camera">Kamera</string>
     <string name="options_section_app">App</string>
+    <string name="options_section_library">Bibliotek</string>
     <string name="options_group_expanded">Utfälld</string>
     <string name="options_group_collapsed">Hopfälld</string>
     <string name="options_group_expand">Fäll ut</string>
@@ -474,7 +475,6 @@
     <string name="cleanup_max_age_days">Maximal ålder (dagar)</string>
     <string name="cleanup_max_count">Maximalt antal</string>
     <string name="cleanup_max_storage_mb">Maximalt lagringsutrymme (MB)</string>
-    <string name="cleanup_settings_saved">Rensningsinställningar sparade</string>
     <string name="inbox_mode">Inbox-läge</string>
     <string name="inbox_mode_enable">Aktivera standardexportmapp</string>
     <string name="inbox_select_folder">Välj mapp</string>

@@ -87,6 +87,7 @@
     <string name="options_section_scan">Beolvasás</string>
     <string name="options_section_camera">Kamera</string>
     <string name="options_section_app">Alkalmazás</string>
+    <string name="options_section_library">Könyvtár</string>
     <string name="options_group_expanded">Kibontva</string>
     <string name="options_group_collapsed">Összecsukva</string>
     <string name="options_group_expand">Kibontás</string>
@@ -477,7 +478,6 @@
     <string name="cleanup_max_age_days">Maximális életkor (nap)</string>
     <string name="cleanup_max_count">Maximális darabszám</string>
     <string name="cleanup_max_storage_mb">Maximális tárhely (MB)</string>
-    <string name="cleanup_settings_saved">Tisztítási beállítások mentve</string>
     <string name="inbox_mode">Inbox mód</string>
     <string name="inbox_mode_enable">Alapértelmezett exportmappa engedélyezése</string>
     <string name="inbox_select_folder">Mappa kiválasztása</string>

@@ -88,6 +88,7 @@
     <string name="options_section_scan">Scannen</string>
     <string name="options_section_camera">Kamera</string>
     <string name="options_section_app">App</string>
+    <string name="options_section_library">Bibliothek</string>
     <string name="options_group_expanded">Ausgeklappt</string>
     <string name="options_group_collapsed">Eingeklappt</string>
     <string name="options_group_expand">Ausklappen</string>
@@ -491,7 +492,6 @@
     <string name="cleanup_max_age_days">Maximales Alter (Tage)</string>
     <string name="cleanup_max_count">Maximale Anzahl</string>
     <string name="cleanup_max_storage_mb">Maximaler Speicherplatz (MB)</string>
-    <string name="cleanup_settings_saved">Bereinigungseinstellungen gespeichert</string>
 
     <!-- Inbox Mode -->
     <string name="inbox_mode">Inbox-Modus</string>
