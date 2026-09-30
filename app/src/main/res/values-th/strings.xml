@@ -182,7 +182,6 @@
     <string name="pdf_text_layer_mode_title">เลเยอร์ข้อความ PDF</string>
     <string name="pdf_text_layer_mode_line_based">ตามบรรทัด (แนะนำ)</string>
     <string name="pdf_text_layer_mode_word_positioned">วางตำแหน่งตามคำ (ความเข้ากันได้)</string>
-    <string name="export_options_title">ตัวเลือกการส่งออก</string>
     <string name="btn_options">ตัวเลือก</string>
     <string name="btn_save">บันทึก</string>
     <string name="btn_new">สแกนใหม่</string>
@@ -246,13 +245,11 @@
 
     <!-- การเลือกโหมดการรู้จำ OCR -->
     <string name="ocr_choose_prep_mode_menu">โหมดการรู้จำ…</string>
-    <string name="ocr_choose_prep_mode_title">เลือกโหมดการรู้จำ</string>
     <string name="ocr_mode_original">ต้นฉบับ (ไม่ประมวลผลล่วงหน้า)</string>
     <string name="ocr_mode_quick">OpenCV Quick (รวดเร็ว)</string>
     <string name="ocr_mode_robust">OpenCV Robust (คุณภาพสูง)</string>
     <string name="opt_paddle_best_ocr">คุณภาพ Paddle OCR ดีที่สุด (ช้าลง)</string>
     <string name="opt_multi_column_ocr">เลย์เอาต์หลายคอลัมน์ (หนังสือพิมพ์ นิตยสาร)</string>
-    <string name="ocr_prep_mode_set">ตั้งค่าโหมดการรู้จำเป็น %1$s แล้ว</string>
 
     <!-- Labels -->
     <string name="label_language">ภาษา</string>

@@ -186,7 +186,6 @@
     <string name="pdf_text_layer_mode_title">Calque de texte PDF</string>
     <string name="pdf_text_layer_mode_line_based">Basé sur les lignes (recommandé)</string>
     <string name="pdf_text_layer_mode_word_positioned">Positionné par mot (compatibilité)</string>
-    <string name="export_options_title">Options d’export</string>
     <string name="btn_options">Options</string>
     <string name="btn_save">Enregistrer</string>
     <string name="btn_new">Nouveau scan</string>
@@ -250,13 +249,11 @@
 
     <!-- Sélection du mode de reconnaissance OCR -->
     <string name="ocr_choose_prep_mode_menu">Mode de reconnaissance…</string>
-    <string name="ocr_choose_prep_mode_title">Choisir le mode de reconnaissance</string>
     <string name="ocr_mode_original">Original (sans prétraitement)</string>
     <string name="ocr_mode_quick">OpenCV Quick (rapide)</string>
     <string name="ocr_mode_robust">OpenCV Robust (haute qualité)</string>
     <string name="opt_paddle_best_ocr">Meilleure qualité Paddle OCR (plus lent)</string>
     <string name="opt_multi_column_ocr">Mise en page multicolonne (journaux, magazines)</string>
-    <string name="ocr_prep_mode_set">Mode de reconnaissance défini sur %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Langue</string>

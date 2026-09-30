@@ -188,7 +188,6 @@
     <string name="pdf_text_layer_mode_title">Livello testo PDF</string>
     <string name="pdf_text_layer_mode_line_based">Basato sulle righe (consigliato)</string>
     <string name="pdf_text_layer_mode_word_positioned">Posizionato per parola (compatibilità)</string>
-    <string name="export_options_title">Opzioni di esportazione</string>
     <string name="btn_options">Opzioni</string>
     <string name="btn_save">Salva</string>
     <string name="btn_new">Nuova scansione</string>
@@ -250,13 +249,11 @@
 
     <!-- Selezione modalità di riconoscimento OCR -->
     <string name="ocr_choose_prep_mode_menu">Modalità di riconoscimento…</string>
-    <string name="ocr_choose_prep_mode_title">Scegli la modalità di riconoscimento</string>
     <string name="ocr_mode_original">Originale (senza pre-elaborazione)</string>
     <string name="ocr_mode_quick">OpenCV Quick (veloce)</string>
     <string name="ocr_mode_robust">OpenCV Robust (alta qualità)</string>
     <string name="opt_paddle_best_ocr">Migliore qualità Paddle OCR (più lenta)</string>
     <string name="opt_multi_column_ocr">Layout a più colonne (giornali, riviste)</string>
-    <string name="ocr_prep_mode_set">Modalità di riconoscimento impostata su %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Lingua</string>

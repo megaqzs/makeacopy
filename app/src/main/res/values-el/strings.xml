@@ -183,7 +183,6 @@
     <string name="pdf_text_layer_mode_title">Επίπεδο κειμένου PDF</string>
     <string name="pdf_text_layer_mode_line_based">Βασισμένο σε γραμμές (συνιστάται)</string>
     <string name="pdf_text_layer_mode_word_positioned">Τοποθέτηση ανά λέξη (συμβατότητα)</string>
-    <string name="export_options_title">Επιλογές εξαγωγής</string>
     <!-- Page format selection (PDF export) -->
     <string name="page_format_label">Μέγεθος σελίδας</string>
     <string name="page_format_fit">Προσαρμογή στην εικόνα (συνιστάται)</string>
@@ -239,14 +238,12 @@
 
     <!-- OCR prep modes selection -->
     <string name="ocr_choose_prep_mode_menu">Λειτουργία αναγνώρισης…</string>
-    <string name="ocr_choose_prep_mode_title">Επιλέξτε λειτουργία αναγνώρισης</string>
     <string name="ocr_mode_original">Αρχικό (χωρίς προεπεξεργασία)</string>
     <string name="ocr_mode_quick">OpenCV Quick (γρήγορο)</string>
     <string name="ocr_mode_robust">OpenCV Robust (υψηλή ποιότητα)</string>
     <string name="ocr_mode_paddle" tools:ignore="MissingTranslation">PaddleOCR (πειραματικό, χωρίς προεπεξεργασία)</string>
     <string name="opt_paddle_best_ocr">Καλύτερη ποιότητα Paddle OCR (πιο αργό)</string>
     <string name="opt_multi_column_ocr">Διάταξη πολλών στηλών (εφημερίδες, περιοδικά)</string>
-    <string name="ocr_prep_mode_set">Η λειτουργία αναγνώρισης ορίστηκε σε %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Γλώσσα</string>

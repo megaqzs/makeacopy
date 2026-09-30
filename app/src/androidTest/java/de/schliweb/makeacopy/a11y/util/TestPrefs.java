@@ -11,7 +11,7 @@ public final class TestPrefs {
     prefs
         .edit()
         .putBoolean(
-            de.schliweb.makeacopy.ui.camera.CameraOptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE,
+            de.schliweb.makeacopy.ui.options.OptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE,
             enabled)
         .apply();
   }

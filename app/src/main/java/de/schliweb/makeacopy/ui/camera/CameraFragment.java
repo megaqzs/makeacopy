@@ -65,6 +65,7 @@ import de.schliweb.makeacopy.framing.*;
 import de.schliweb.makeacopy.ui.crop.CropViewModel;
 import de.schliweb.makeacopy.ui.export.ExportPrefsHelper;
 import de.schliweb.makeacopy.ui.ocr.OCRViewModel;
+import de.schliweb.makeacopy.ui.options.OptionsDialogFragment;
 import de.schliweb.makeacopy.utils.image.OpenCVUtils;
 import de.schliweb.makeacopy.utils.infra.FeatureFlags;
 import de.schliweb.makeacopy.utils.ui.A11yUtils;
@@ -496,26 +497,23 @@ public class CameraFragment extends Fragment implements SensorEventListener {
   private void showCameraOptions() {
     getParentFragmentManager()
         .setFragmentResultListener(
-            CameraOptionsDialogFragment.REQUEST_KEY,
+            OptionsDialogFragment.REQUEST_KEY,
             getViewLifecycleOwner(),
             (requestKey, bundle) -> {
               onCameraOptionsResult(bundle);
               getParentFragmentManager()
-                  .clearFragmentResultListener(CameraOptionsDialogFragment.REQUEST_KEY);
+                  .clearFragmentResultListener(OptionsDialogFragment.REQUEST_KEY);
             });
-    CameraOptionsDialogFragment.show(getParentFragmentManager());
+    OptionsDialogFragment.show(getParentFragmentManager());
   }
 
   private void onCameraOptionsResult(Bundle bundle) {
-    boolean skip = bundle.getBoolean(CameraOptionsDialogFragment.BUNDLE_SKIP_OCR, false);
-    boolean analysisPref =
-        bundle.getBoolean(CameraOptionsDialogFragment.BUNDLE_ANALYSIS_ENABLED, true);
-    boolean a11yPref =
-        bundle.getBoolean(CameraOptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE, false);
+    boolean skip = bundle.getBoolean(OptionsDialogFragment.BUNDLE_SKIP_OCR, false);
+    boolean analysisPref = bundle.getBoolean(OptionsDialogFragment.BUNDLE_ANALYSIS_ENABLED, true);
+    boolean a11yPref = bundle.getBoolean(OptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE, false);
     boolean exposurePref =
-        bundle.getBoolean(CameraOptionsDialogFragment.BUNDLE_EXPOSURE_COMPENSATION, false);
-    boolean manualFocusPref =
-        bundle.getBoolean(CameraOptionsDialogFragment.BUNDLE_MANUAL_FOCUS, false);
+        bundle.getBoolean(OptionsDialogFragment.BUNDLE_EXPOSURE_COMPENSATION, false);
+    boolean manualFocusPref = bundle.getBoolean(OptionsDialogFragment.BUNDLE_MANUAL_FOCUS, false);
     Context ctx = getContext();
     if (ctx != null) {
       android.content.SharedPreferences prefs =
@@ -526,7 +524,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
           .putBoolean("analysis_enabled", analysisPref)
           // Accessibility is already persisted by the dialog; keep a mirror for
           // local reads if needed
-          .putBoolean(CameraOptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE, a11yPref)
+          .putBoolean(OptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE, a11yPref)
           .apply();
     }
     // Apply the toggles immediately if we are in camera mode
@@ -1557,7 +1555,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     Context ctx = getContext();
     if (ctx == null
         || !ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE)
-            .getBoolean(CameraOptionsDialogFragment.BUNDLE_MANUAL_FOCUS, false)) {
+            .getBoolean(OptionsDialogFragment.BUNDLE_MANUAL_FOCUS, false)) {
       resetManualFocusControl();
       return;
     }
@@ -2548,7 +2546,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     if (ctxEc != null) {
       android.content.SharedPreferences prefsEc =
           ctxEc.getSharedPreferences("export_options", Context.MODE_PRIVATE);
-      if (!prefsEc.getBoolean(CameraOptionsDialogFragment.BUNDLE_EXPOSURE_COMPENSATION, false)) {
+      if (!prefsEc.getBoolean(OptionsDialogFragment.BUNDLE_EXPOSURE_COMPENSATION, false)) {
         binding.exposureControl.setVisibility(View.GONE);
         // Reset EV to 0 when feature is disabled
         applyExposureCompensation(0);
@@ -3132,7 +3130,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     Context ctx = getContext();
     if (ctx == null) return false;
     return ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE)
-        .getBoolean(CameraOptionsDialogFragment.BUNDLE_FOCUS_QUALITY_INDICATOR, false);
+        .getBoolean(OptionsDialogFragment.BUNDLE_FOCUS_QUALITY_INDICATOR, false);
   }
 
   /** Hides the focus-quality indicator and resets the normalization state. */
@@ -3817,7 +3815,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     Context ctx = getContext();
     if (ctx == null) return false;
     return ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE)
-        .getBoolean(CameraOptionsDialogFragment.BUNDLE_LOW_LIGHT_PROMPT, true);
+        .getBoolean(OptionsDialogFragment.BUNDLE_LOW_LIGHT_PROMPT, true);
   }
 
   private void setLowLightPromptEnabled(boolean enabled) {
@@ -3825,7 +3823,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     if (ctx == null) return;
     ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE)
         .edit()
-        .putBoolean(CameraOptionsDialogFragment.BUNDLE_LOW_LIGHT_PROMPT, enabled)
+        .putBoolean(OptionsDialogFragment.BUNDLE_LOW_LIGHT_PROMPT, enabled)
         .apply();
   }
 
@@ -3834,7 +3832,7 @@ public class CameraFragment extends Fragment implements SensorEventListener {
     if (ctx == null) return false;
     android.content.SharedPreferences prefs =
         ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE);
-    return prefs.getBoolean(CameraOptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE, false);
+    return prefs.getBoolean(OptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE, false);
   }
 
   private boolean isStableFor(int frames, double threshold) {

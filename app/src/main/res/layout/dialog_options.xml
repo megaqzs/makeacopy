@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/options_scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,6 +15,7 @@
 
         <!-- Scan: what happens between capture and export -->
         <TextView
+            android:id="@+id/section_scan"
             style="@style/Widget.MakeACopy.OptionsSection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,6 +47,7 @@
 
         <!-- Camera: how the picture is taken -->
         <TextView
+            android:id="@+id/section_camera"
             style="@style/Widget.MakeACopy.OptionsSection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,8 +77,29 @@
             android:layout_height="wrap_content"
             android:text="@string/low_light_prompt_option" />
 
+        <!-- OCR: recognition mode and post-processing (shared with the OCR screen's dialog) -->
+        <TextView
+            android:id="@+id/section_ocr"
+            style="@style/Widget.MakeACopy.OptionsSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_ocr" />
+
+        <include layout="@layout/panel_ocr_options" />
+
+        <!-- Export: output options (shared with the Export screen's dialog) -->
+        <TextView
+            android:id="@+id/section_export"
+            style="@style/Widget.MakeACopy.OptionsSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_export" />
+
+        <include layout="@layout/panel_export_options" />
+
         <!-- App: settings that apply everywhere -->
         <TextView
+            android:id="@+id/section_app"
             style="@style/Widget.MakeACopy.OptionsSection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

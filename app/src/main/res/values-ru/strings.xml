@@ -188,7 +188,6 @@
     <string name="pdf_text_layer_mode_title">Текстовый слой PDF</string>
     <string name="pdf_text_layer_mode_line_based">По строкам (рекомендуется)</string>
     <string name="pdf_text_layer_mode_word_positioned">По позициям слов (совместимость)</string>
-    <string name="export_options_title">Параметры экспорта</string>
     <string name="btn_options">Параметры</string>
     <string name="btn_save">Сохранить</string>
     <string name="btn_new">Новое сканирование</string>
@@ -251,13 +250,11 @@
 
     <!-- Выбор режима распознавания OCR -->
     <string name="ocr_choose_prep_mode_menu">Режим распознавания…</string>
-    <string name="ocr_choose_prep_mode_title">Выберите режим распознавания</string>
     <string name="ocr_mode_original">Оригинал (без предварительной обработки)</string>
     <string name="ocr_mode_quick">OpenCV Quick (быстрый)</string>
     <string name="ocr_mode_robust">OpenCV Robust (высокое качество)</string>
     <string name="opt_paddle_best_ocr">Лучшее качество Paddle OCR (медленнее)</string>
     <string name="opt_multi_column_ocr">Многоколоночный макет (газеты, журналы)</string>
-    <string name="ocr_prep_mode_set">Режим распознавания установлен на %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Язык</string>

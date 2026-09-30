@@ -185,7 +185,6 @@
     <string name="pdf_text_layer_mode_title">PDF-textlager</string>
     <string name="pdf_text_layer_mode_line_based">Radbaserat (rekommenderas)</string>
     <string name="pdf_text_layer_mode_word_positioned">Ordplacerat (kompatibilitet)</string>
-    <string name="export_options_title">Exportalternativ</string>
     <string name="btn_options">Alternativ</string>
     <string name="btn_save">Spara</string>
     <string name="btn_new">Ny skanning</string>
@@ -247,13 +246,11 @@
 
     <!-- OCR igenkänningslägen – val -->
     <string name="ocr_choose_prep_mode_menu">Igenkänningsläge…</string>
-    <string name="ocr_choose_prep_mode_title">Välj igenkänningsläge</string>
     <string name="ocr_mode_original">Original (ingen förbehandling)</string>
     <string name="ocr_mode_quick">OpenCV Quick (snabbt)</string>
     <string name="ocr_mode_robust">OpenCV Robust (hög kvalitet)</string>
     <string name="opt_paddle_best_ocr">Bästa Paddle OCR-kvalitet (långsammare)</string>
     <string name="opt_multi_column_ocr">Flerspaltslayout (tidningar, magasin)</string>
-    <string name="ocr_prep_mode_set">Igenkänningsläge inställt på %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Språk</string>

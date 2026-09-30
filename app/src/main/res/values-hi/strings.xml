@@ -176,7 +176,6 @@
     <string name="pdf_text_layer_mode_title">PDF टेक्स्ट लेयर</string>
     <string name="pdf_text_layer_mode_line_based">लाइन-आधारित (अनुशंसित)</string>
     <string name="pdf_text_layer_mode_word_positioned">शब्द-स्थित (संगतता)</string>
-    <string name="export_options_title">निर्यात विकल्प</string>
     <!-- Page format selection (PDF export) -->
     <string name="page_format_label">पृष्ठ आकार</string>
     <string name="page_format_fit">चित्र के अनुसार (अनुशंसित)</string>
@@ -235,13 +234,11 @@
 
     <!-- OCR prep modes selection -->
     <string name="ocr_choose_prep_mode_menu">पहचान मोड…</string>
-    <string name="ocr_choose_prep_mode_title">पहचान मोड चुनें</string>
     <string name="ocr_mode_original">मूल (कोई प्रीप्रोसेसिंग नहीं)</string>
     <string name="ocr_mode_quick">OpenCV क्विक (तेज़)</string>
     <string name="ocr_mode_robust">OpenCV रोबस्ट (उच्च गुणवत्ता)</string>
     <string name="opt_paddle_best_ocr">सर्वोत्तम Paddle OCR गुणवत्ता (धीमा)</string>
     <string name="opt_multi_column_ocr">बहु-स्तंभ लेआउट (समाचार पत्र, पत्रिकाएँ)</string>
-    <string name="ocr_prep_mode_set">पहचान मोड सेट: %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">भाषा</string>

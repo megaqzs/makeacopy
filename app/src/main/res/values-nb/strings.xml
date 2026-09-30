@@ -184,7 +184,6 @@
     <string name="pdf_text_layer_mode_title">PDF-tekstlag</string>
     <string name="pdf_text_layer_mode_line_based">Linjebasert (anbefalt)</string>
     <string name="pdf_text_layer_mode_word_positioned">Ordplassert (kompatibilitet)</string>
-    <string name="export_options_title">Eksportalternativer</string>
     <string name="btn_options">Alternativer</string>
     <string name="btn_save">Lagre</string>
     <string name="btn_new">Ny skanning</string>
@@ -247,13 +246,11 @@
 
     <!-- OCR gjenkjenningsmoduser – valg -->
     <string name="ocr_choose_prep_mode_menu">Gjenkjenningsmodus…</string>
-    <string name="ocr_choose_prep_mode_title">Velg gjenkjenningsmodus</string>
     <string name="ocr_mode_original">Original (ingen forhåndsbehandling)</string>
     <string name="ocr_mode_quick">OpenCV Quick (rask)</string>
     <string name="ocr_mode_robust">OpenCV Robust (høy kvalitet)</string>
     <string name="opt_paddle_best_ocr">Beste Paddle OCR-kvalitet (tregere)</string>
     <string name="opt_multi_column_ocr">Flerspaltet oppsett (aviser, magasiner)</string>
-    <string name="ocr_prep_mode_set">Gjenkjenningsmodus satt til %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Språk</string>

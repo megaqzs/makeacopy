@@ -7,7 +7,7 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.schliweb.makeacopy.ui.camera;
+package de.schliweb.makeacopy.ui.options;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -27,16 +29,18 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import de.schliweb.makeacopy.BuildConfig;
 import de.schliweb.makeacopy.R;
+import de.schliweb.makeacopy.ui.export.ExportOptionsPanel;
+import de.schliweb.makeacopy.ui.ocr.OcrOptionsPanel;
 import de.schliweb.makeacopy.utils.ui.AppLanguage;
 import de.schliweb.makeacopy.utils.ui.DialogUtils;
 import java.util.List;
 
 /**
- * A DialogFragment implementation that provides camera-specific options and configurations. It
- * serves as a UI interface for users to select or adjust camera settings before capturing or
- * processing images.
+ * The options dialog of the camera screen, which is the start of the workflow and therefore the one
+ * place that shows every setting: Scan, Camera, OCR, Export and App. The OCR and Export groups are
+ * the same panels the OCR and Export screens open, so each setting exists once.
  */
-public class CameraOptionsDialogFragment extends DialogFragment {
+public class OptionsDialogFragment extends DialogFragment {
 
   public static final String REQUEST_KEY = "camera_options";
   public static final String BUNDLE_SKIP_OCR = "skip_ocr";
@@ -51,14 +55,83 @@ public class CameraOptionsDialogFragment extends DialogFragment {
   /** Whether the camera may ask to turn on the flashlight in low light. Default: yes. */
   public static final String BUNDLE_LOW_LIGHT_PROMPT = "low_light_prompt_enabled";
 
-  private static final String FRAGMENT_TAG = "CameraOptionsDialogFragment";
+  private static final String FRAGMENT_TAG = "OptionsDialogFragment";
+  private static final String ARG_SECTION = "section";
+
+  /** The groups of the dialog; each screen opens the dialog at its own group. */
+  public enum Section {
+    SCAN,
+    CAMERA,
+    OCR,
+    EXPORT,
+    APP
+  }
+
+  private ActivityResultLauncher<android.net.Uri> inboxFolderLauncher;
+  @Nullable private ExportOptionsPanel exportPanel;
 
   public static void show(@NonNull FragmentManager fm) {
+    show(fm, Section.SCAN);
+  }
+
+  /** Opens the dialog scrolled to {@code section}. */
+  public static void show(@NonNull FragmentManager fm, @NonNull Section section) {
     // Guard against rapid double-taps on the options button: if a dialog with this tag
     // is already added, do not show a second instance. showNow() commits synchronously,
     // so the tag is visible to the very next click event.
     if (fm.findFragmentByTag(FRAGMENT_TAG) != null || fm.isStateSaved()) return;
-    new CameraOptionsDialogFragment().showNow(fm, FRAGMENT_TAG);
+    OptionsDialogFragment f = new OptionsDialogFragment();
+    Bundle args = new Bundle();
+    args.putString(ARG_SECTION, section.name());
+    f.setArguments(args);
+    f.showNow(fm, FRAGMENT_TAG);
+  }
+
+  private Section requestedSection() {
+    Bundle args = getArguments();
+    String name = args != null ? args.getString(ARG_SECTION) : null;
+    try {
+      return name != null ? Section.valueOf(name) : Section.SCAN;
+    } catch (IllegalArgumentException e) {
+      return Section.SCAN;
+    }
+  }
+
+  private static int headingId(Section section) {
+    return switch (section) {
+      case SCAN -> R.id.section_scan;
+      case CAMERA -> R.id.section_camera;
+      case OCR -> R.id.section_ocr;
+      case EXPORT -> R.id.section_export;
+      case APP -> R.id.section_app;
+    };
+  }
+
+  /** Scrolls the sheet so that the requested group's heading is at the top. */
+  private static void scrollToSection(View view, Section section) {
+    if (section == Section.SCAN) return;
+    android.widget.ScrollView scroll = view.findViewById(R.id.options_scroll);
+    View heading = view.findViewById(headingId(section));
+    if (scroll == null || heading == null) return;
+    scroll.post(() -> scroll.scrollTo(0, heading.getTop()));
+  }
+
+  /**
+   * Greys out what the other choices make irrelevant, so the dialog cannot show contradicting
+   * settings: without OCR there is nothing to auto-rotate, post-process, export as text or put into
+   * a PDF text layer; without the crop screen there is no edge detection to skip.
+   */
+  private static void applyDependencies(
+      CheckBox cbSkipOcr,
+      CheckBox cbSkipCropping,
+      CheckBox cbSkipEdgeDetection,
+      OcrOptionsPanel ocrPanel,
+      ExportOptionsPanel exportPanel) {
+    boolean ocr = !cbSkipOcr.isChecked();
+    ocrPanel.setEnabled(ocr);
+    exportPanel.setOcrDependentEnabled(ocr);
+    de.schliweb.makeacopy.utils.ui.UIUtils.setEnabledWithAlpha(
+        cbSkipEdgeDetection, !cbSkipCropping.isChecked());
   }
 
   /**
@@ -315,11 +388,30 @@ public class CameraOptionsDialogFragment extends DialogFragment {
     dialog.show();
   }
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    inboxFolderLauncher =
+        registerForActivityResult(
+            new ActivityResultContracts.OpenDocumentTree(),
+            uri -> {
+              if (uri != null && getContext() != null && exportPanel != null) {
+                exportPanel.onInboxFolderPicked(getContext(), uri);
+              }
+            });
+  }
+
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
     Context ctx = requireContext();
-    View view = getLayoutInflater().inflate(R.layout.dialog_camera_options, null);
+    View view = getLayoutInflater().inflate(R.layout.dialog_options, null);
+
+    // OCR and Export groups: the shared panels, showing both output formats side by side
+    OcrOptionsPanel ocrPanel = new OcrOptionsPanel(view);
+    ocrPanel.bind(ctx);
+    exportPanel = new ExportOptionsPanel(view);
+    exportPanel.bind(ctx, ExportOptionsPanel.Formats.ALL, inboxFolderLauncher);
 
     CheckBox cbSkip = view.findViewById(R.id.dialog_checkbox_skip_ocr);
     CheckBox cbSkipCropping = view.findViewById(R.id.dialog_checkbox_skip_cropping);
@@ -359,6 +451,13 @@ public class CameraOptionsDialogFragment extends DialogFragment {
       }
     }
 
+    Runnable dependencies =
+        () -> applyDependencies(cbSkip, cbSkipCropping, cbSkipEdgeDetection, ocrPanel, exportPanel);
+    dependencies.run();
+    cbSkip.setOnCheckedChangeListener((b, checked) -> dependencies.run());
+    cbSkipCropping.setOnCheckedChangeListener((b, checked) -> dependencies.run());
+    scrollToSection(view, requestedSection());
+
     // App language row: shows the current choice and opens the picker
     View languageRow = view.findViewById(R.id.row_app_language);
     TextView languageValue = view.findViewById(R.id.text_app_language_value);
@@ -394,8 +493,6 @@ public class CameraOptionsDialogFragment extends DialogFragment {
           boolean lowLightPrompt = cbLowLightPrompt == null || cbLowLightPrompt.isChecked();
           // No extra A11y options persisted
 
-          // Persist. "include_ocr" is deliberately NOT touched here: it is the export option
-          // "Export OCR as separate TXT" and belongs to the export options dialog alone.
           prefs
               .edit()
               .putBoolean(BUNDLE_SKIP_OCR, skip)
@@ -409,6 +506,18 @@ public class CameraOptionsDialogFragment extends DialogFragment {
               .putBoolean(BUNDLE_LOW_LIGHT_PROMPT, lowLightPrompt)
               .apply();
 
+          OcrOptionsPanel.Choice ocr = ocrPanel.apply(ctx);
+          if (!ocrPanel.isFixedPaddleMode()
+              && ocr.mode() != de.schliweb.makeacopy.utils.ocr.OCRHelper.OCR_MODE_PADDLE) {
+            // Leaving PaddleOCR: release the engine so the next run starts a clean session
+            try {
+              de.schliweb.makeacopy.utils.ocr.PaddleEngineProvider.releaseAll(ctx);
+            } catch (Throwable ignore) {
+              // Best-effort; failure is non-critical
+            }
+          }
+          Bundle exportResult = exportPanel.apply(ctx);
+
           Bundle result = new Bundle();
           result.putBoolean(BUNDLE_SKIP_OCR, skip);
           result.putBoolean(BUNDLE_SKIP_CROPPING, skipCropping);
@@ -419,6 +528,8 @@ public class CameraOptionsDialogFragment extends DialogFragment {
           result.putBoolean(BUNDLE_MANUAL_FOCUS, manualFocus);
           result.putBoolean(BUNDLE_FOCUS_QUALITY_INDICATOR, focusQuality);
           getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
+          getParentFragmentManager()
+              .setFragmentResult(ExportOptionsPanel.REQUEST_KEY, exportResult);
         });
   }
 }

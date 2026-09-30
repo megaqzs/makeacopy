@@ -23,7 +23,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -37,6 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import de.schliweb.makeacopy.R;
 import de.schliweb.makeacopy.databinding.FragmentOcrBinding;
 import de.schliweb.makeacopy.ui.crop.CropViewModel;
+import de.schliweb.makeacopy.ui.options.OptionsDialogFragment;
 import de.schliweb.makeacopy.utils.image.ImageLoader;
 import de.schliweb.makeacopy.utils.infra.FeatureFlags;
 import de.schliweb.makeacopy.utils.ocr.*;
@@ -102,9 +102,11 @@ public class OCRFragment extends Fragment {
   // SAF launcher for manual traineddata import
   private ActivityResultLauncher<Intent> openTraineddataLauncher;
 
-  public static final String BUNDLE_OCR_AUTO_ROTATE_APPLY_EXPORT = "ocr_auto_rotate_apply_export";
-  public static final String BUNDLE_OCR_POST_PROCESSING = "ocr_post_processing";
-  public static final String BUNDLE_PADDLE_BEST_OCR = "paddle_best_ocr";
+  public static final String BUNDLE_OCR_AUTO_ROTATE_APPLY_EXPORT =
+      OcrOptionsPanel.BUNDLE_OCR_AUTO_ROTATE_APPLY_EXPORT;
+  public static final String BUNDLE_OCR_POST_PROCESSING =
+      OcrOptionsPanel.BUNDLE_OCR_POST_PROCESSING;
+  public static final String BUNDLE_PADDLE_BEST_OCR = OcrOptionsPanel.BUNDLE_PADDLE_BEST_OCR;
 
   @Override
   public View onCreateView(
@@ -376,7 +378,6 @@ public class OCRFragment extends Fragment {
   private static final String PREFS_NAME = "export_options";
 
   private static final String PREF_KEY_OCR_LANG = "ocr_language";
-  private static final String PREF_KEY_OCR_MODE = "ocr_prep_mode"; // 0=Original,1=Quick,2=Robust
 
   // Recognition prep modes (image preprocessing before Tesseract)
   static final int OCR_MODE_ORIGINAL = 0;
@@ -737,287 +738,26 @@ public class OCRFragment extends Fragment {
   }
 
   private int getSelectedOcrMode() {
-    if (de.schliweb.makeacopy.BuildConfig.FEATURE_PADDLE_OCR) {
-      return OCR_MODE_PADDLE;
-    }
-    try {
-      android.content.SharedPreferences sp =
-          requireContext().getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
-      // Migration: Quick is no longer a user-facing mode (FR#74 benchmark 2026-04-26b
-      // showed Quick == Robust for binaryOutput=false). Map any persisted Quick to Robust
-      // and default new installs to Robust.
-      int stored = sp.getInt(PREF_KEY_OCR_MODE, OCR_MODE_ROBUST);
-      if (stored == OCR_MODE_QUICK) {
-        stored = OCR_MODE_ROBUST;
-        sp.edit().putInt(PREF_KEY_OCR_MODE, stored).apply();
-      }
-      // Migration: the experimental PaddleOCR toggle (PaddleOcrPrefs.KEY) used to be a
-      // separate checkbox alongside the prep-mode picker. It is now folded into the
-      // recognition-mode radio group as OCR_MODE_PADDLE. Existing users that opted into
-      // PaddleOCR keep their preference: map the toggle to the new mode and clear the
-      // legacy key.
-      try {
-        if (sp.getBoolean(PaddleOcrPrefs.KEY, false)) {
-          if (PaddleOcrPrefs.isToggleVisible() && stored != OCR_MODE_PADDLE) {
-            stored = OCR_MODE_PADDLE;
-            sp.edit().putInt(PREF_KEY_OCR_MODE, stored).remove(PaddleOcrPrefs.KEY).apply();
-          } else {
-            // Toggle no longer applicable (e.g. unsupported ABI) — drop legacy key.
-            sp.edit().remove(PaddleOcrPrefs.KEY).apply();
-          }
-        }
-      } catch (Throwable ignore) {
-        // Best-effort migration; failure is non-critical.
-      }
-      // If a previously persisted PADDLE mode is no longer applicable (e.g. user installed
-      // a non-paddle build), fall back to Robust without clobbering the stored value to
-      // avoid data loss across re-installs of the paddle flavor.
-      if (stored == OCR_MODE_PADDLE && !PaddleOcrPrefs.isToggleVisible()) {
-        return OCR_MODE_ROBUST;
-      }
-      return stored;
-    } catch (Throwable ignore) {
-      return OCR_MODE_ROBUST;
-    }
+    return OcrOptionsPanel.selectedOcrMode(requireContext());
   }
 
-  private void setSelectedOcrMode(int mode) {
-    try {
-      android.content.SharedPreferences sp =
-          requireContext().getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
-      sp.edit().putInt(PREF_KEY_OCR_MODE, mode).apply();
-    } catch (Throwable ignore) {
-      // Best-effort; failure is non-critical
-    }
-  }
-
-  private static final String BUNDLE_LAYOUT_ANALYSIS = "layout_analysis";
-
-  /** The input views of the OCR prep mode dialog. */
-  private record PrepModeDialogViews(
-      android.widget.RadioGroup modes,
-      android.widget.CheckBox autoRotate,
-      android.widget.CheckBox postProcessing,
-      android.widget.CheckBox layoutAnalysis,
-      android.widget.CheckBox paddleBestOcr,
-      android.widget.CheckBox multiColumnOcr) {}
-
-  private void showOcrPrepModeDialog() {
-    android.view.LayoutInflater inflater = android.view.LayoutInflater.from(requireContext());
-    android.view.View view = inflater.inflate(R.layout.dialog_ocr_prep_mode, null);
-    PrepModeDialogViews views =
-        new PrepModeDialogViews(
-            view.findViewById(R.id.rg_ocr_modes),
-            view.findViewById(R.id.checkbox_ocr_auto_rotate_apply_export_dialog),
-            view.findViewById(R.id.checkbox_ocr_post_processing_dialog),
-            view.findViewById(R.id.checkbox_layout_analysis_dialog),
-            view.findViewById(R.id.checkbox_paddle_best_ocr_dialog),
-            view.findViewById(R.id.checkbox_multi_column_ocr_dialog));
-    final boolean fixedPaddleMode = de.schliweb.makeacopy.BuildConfig.FEATURE_PADDLE_OCR;
-    // PaddleOCR (experimental): visible as third radio option only when feature flag
-    // is enabled and ABI is arm64-v8a (see PaddleOcrPrefs.isToggleVisible).
-    final boolean paddleToggleVisible = PaddleOcrPrefs.isToggleVisible();
-
-    if (fixedPaddleMode) {
-      views.modes().setVisibility(android.view.View.GONE);
-    }
-    android.widget.RadioButton rbPaddle = view.findViewById(R.id.rbtn_mode_paddle);
-    rbPaddle.setVisibility(
-        paddleToggleVisible ? android.view.View.VISIBLE : android.view.View.GONE);
-    restorePrepModeDialogState(views, fixedPaddleMode, paddleToggleVisible);
-
-    AlertDialog dlg =
-        new MaterialAlertDialogBuilder(requireContext())
-            .setTitle(
-                fixedPaddleMode ? R.string.ocr_models_manage : R.string.ocr_choose_prep_mode_title)
-            .setView(view)
-            .setNegativeButton(R.string.cancel, null)
-            .setPositiveButton(
-                R.string.ok,
-                (d, w) -> applyPrepModeDialog(views, fixedPaddleMode, paddleToggleVisible))
-            .create();
-    dlg.setOnShowListener(
-        d -> DialogUtils.improveAlertDialogButtonContrastForNight(dlg, requireContext()));
-    dlg.show();
-  }
-
-  /** Shows the saved mode and OCR options in the dialog and hides what does not apply. */
-  private void restorePrepModeDialogState(
-      PrepModeDialogViews views, boolean fixedPaddleMode, boolean paddleToggleVisible) {
-    // Only show layout analysis checkbox if feature flag is enabled
-    boolean layoutFeatureEnabled = FeatureFlags.isLayoutAnalysisEnabled();
-    views
-        .layoutAnalysis()
-        .setVisibility(layoutFeatureEnabled ? android.view.View.VISIBLE : android.view.View.GONE);
-    views
-        .paddleBestOcr()
-        .setVisibility(fixedPaddleMode ? android.view.View.VISIBLE : android.view.View.GONE);
-    views
-        .multiColumnOcr()
-        .setVisibility(fixedPaddleMode ? android.view.View.VISIBLE : android.view.View.GONE);
-
-    final int initialMode =
-        prepModeForPicker(getSelectedOcrMode(), fixedPaddleMode, paddleToggleVisible);
-    views.modes().check(radioIdForPrepMode(initialMode));
-
-    boolean ocrAutoRotateApply = false;
-    boolean ocrPostProcessing = true; // default ON
-    boolean layoutAnalysis = false; // default OFF
-    boolean paddleBestOcr = false; // default OFF
-    boolean multiColumnOcr = false; // default OFF
-    try {
-      android.content.SharedPreferences p =
-          requireContext()
-              .getSharedPreferences("export_options", android.content.Context.MODE_PRIVATE);
-      ocrAutoRotateApply = p.getBoolean(BUNDLE_OCR_AUTO_ROTATE_APPLY_EXPORT, false);
-      ocrPostProcessing = p.getBoolean(BUNDLE_OCR_POST_PROCESSING, true);
-      layoutAnalysis = p.getBoolean(BUNDLE_LAYOUT_ANALYSIS, false);
-      paddleBestOcr = p.getBoolean(BUNDLE_PADDLE_BEST_OCR, false);
-      multiColumnOcr = p.getBoolean(MultiColumnOcrPrefs.KEY, false);
-    } catch (Throwable ignore) {
-      // Best-effort; failure is non-critical
-    }
-    views.autoRotate().setChecked(ocrAutoRotateApply);
-    views.postProcessing().setChecked(ocrPostProcessing);
-    views
-        .postProcessing()
-        .setVisibility(
-            initialMode == OCR_MODE_PADDLE ? android.view.View.GONE : android.view.View.VISIBLE);
-    views.layoutAnalysis().setChecked(layoutAnalysis && layoutFeatureEnabled);
-    views.paddleBestOcr().setChecked(fixedPaddleMode && paddleBestOcr);
-    views.multiColumnOcr().setChecked(fixedPaddleMode && multiColumnOcr);
-    views
-        .modes()
-        .setOnCheckedChangeListener(
-            (group, checkedId) ->
-                views
-                    .postProcessing()
-                    .setVisibility(
-                        checkedId == R.id.rbtn_mode_paddle
-                            ? android.view.View.GONE
-                            : android.view.View.VISIBLE));
-  }
-
-  /** OK in the prep mode dialog: saves mode and options, confirms them, re-runs OCR if needed. */
-  private void applyPrepModeDialog(
-      PrepModeDialogViews views, boolean fixedPaddleMode, boolean paddleToggleVisible) {
-    int selectedMode = OCR_MODE_PADDLE;
-    if (!fixedPaddleMode) {
-      selectedMode =
-          prepModeForRadioId(views.modes().getCheckedRadioButtonId(), paddleToggleVisible);
-      setSelectedOcrMode(selectedMode);
-    }
-
-    boolean postProcessingVisible = selectedMode != OCR_MODE_PADDLE;
-    boolean postProcessingSelected = postProcessingVisible && views.postProcessing().isChecked();
-    try {
-      android.content.SharedPreferences p =
-          requireContext()
-              .getSharedPreferences("export_options", android.content.Context.MODE_PRIVATE);
-      android.content.SharedPreferences.Editor editor =
-          p.edit()
-              .putBoolean(BUNDLE_OCR_AUTO_ROTATE_APPLY_EXPORT, views.autoRotate().isChecked())
-              .putBoolean(BUNDLE_LAYOUT_ANALYSIS, views.layoutAnalysis().isChecked())
-              .putBoolean(
-                  BUNDLE_PADDLE_BEST_OCR, fixedPaddleMode && views.paddleBestOcr().isChecked())
-              .putBoolean(
-                  MultiColumnOcrPrefs.KEY, fixedPaddleMode && views.multiColumnOcr().isChecked());
-      if (postProcessingVisible) {
-        editor.putBoolean(BUNDLE_OCR_POST_PROCESSING, postProcessingSelected);
-      }
-      editor.apply();
-    } catch (Throwable ignore) {
-      // Best-effort; failure is non-critical
-    }
-
-    // PaddleOCR is now selected as a recognition mode (not a separate toggle).
-    // When the user moves AWAY from PaddleOCR, release the engine so that the
-    // next OCR run starts a clean Tesseract session.
-    if (!fixedPaddleMode && selectedMode != OCR_MODE_PADDLE) {
-      try {
-        PaddleEngineProvider.releaseAll(requireContext());
-      } catch (Throwable t) {
-        Log.w(TAG, "PaddleEngineProvider.releaseAll failed", t);
-      }
-    }
-
-    showPrepModeToast(views, selectedMode, fixedPaddleMode, postProcessingSelected);
-    prepareReprocessAfterModelChange();
-  }
-
-  /** Toast with the selected mode AND the current status of the OCR options. */
-  private void showPrepModeToast(
-      PrepModeDialogViews views,
-      int selectedMode,
-      boolean fixedPaddleMode,
-      boolean postProcessingSelected) {
-    CharSequence[] modes =
-        new CharSequence[] {
-          getString(R.string.ocr_mode_original),
-          getString(R.string.ocr_mode_quick),
-          getString(R.string.ocr_mode_robust),
-          getString(R.string.ocr_mode_paddle)
-        };
-    StringBuilder toastMsg =
-        new StringBuilder(
-            getString(
-                R.string.ocr_prep_mode_set,
-                modes[fixedPaddleMode ? OCR_MODE_PADDLE : selectedMode]));
-    appendOptionState(
-        toastMsg,
-        getString(R.string.opt_ocr_auto_rotate_apply_export),
-        views.autoRotate().isChecked());
-    if (selectedMode != OCR_MODE_PADDLE) {
-      appendOptionState(
-          toastMsg, getString(R.string.opt_ocr_post_processing), postProcessingSelected);
-    }
-    // Only show layout analysis in toast if feature is enabled
-    if (FeatureFlags.isLayoutAnalysisEnabled()) {
-      appendOptionState(
-          toastMsg, getString(R.string.opt_layout_analysis), views.layoutAnalysis().isChecked());
-    }
-    if (fixedPaddleMode) {
-      appendOptionState(
-          toastMsg, getString(R.string.opt_paddle_best_ocr), views.paddleBestOcr().isChecked());
-      appendOptionState(
-          toastMsg, getString(R.string.opt_multi_column_ocr), views.multiColumnOcr().isChecked());
-    }
-    UIUtils.showToast(requireContext(), toastMsg.toString(), Toast.LENGTH_SHORT);
-  }
-
-  @VisibleForTesting
-  static void appendOptionState(StringBuilder sb, String label, boolean on) {
-    sb.append("\n").append(label).append(": ").append(on ? "[ON]" : "[OFF]");
-  }
+  private static final String BUNDLE_LAYOUT_ANALYSIS = OcrOptionsPanel.BUNDLE_LAYOUT_ANALYSIS;
 
   /**
-   * The mode the picker shows for a saved mode. Quick is hidden in the picker (see
-   * dialog_ocr_prep_mode.xml: rbtn_mode_quick is gone), so a lingering Quick selection counts as
-   * Robust; PaddleOCR is only valid while it can be chosen, otherwise it falls back to Robust.
+   * Opens the shared options dialog at the OCR group. When it is confirmed the primary action
+   * becomes "Process" so that the user can re-run OCR with the new settings.
    */
-  @VisibleForTesting
-  static int prepModeForPicker(
-      int savedMode, boolean fixedPaddleMode, boolean paddleToggleVisible) {
-    int mode = Math.max(0, Math.min(OCR_MODE_PADDLE, savedMode));
-    if (mode == OCR_MODE_QUICK) mode = OCR_MODE_ROBUST;
-    if (mode == OCR_MODE_PADDLE && !fixedPaddleMode && !paddleToggleVisible) {
-      mode = OCR_MODE_ROBUST;
-    }
-    return mode;
-  }
-
-  private static int radioIdForPrepMode(int pickerMode) {
-    if (pickerMode == OCR_MODE_ORIGINAL) return R.id.rbtn_mode_original;
-    if (pickerMode == OCR_MODE_PADDLE) return R.id.rbtn_mode_paddle;
-    return R.id.rbtn_mode_robust;
-  }
-
-  /** The mode for the checked radio button; anything else (incl. hidden Quick) is Robust. */
-  @VisibleForTesting
-  static int prepModeForRadioId(int checkedId, boolean paddleToggleVisible) {
-    if (checkedId == R.id.rbtn_mode_original) return OCR_MODE_ORIGINAL;
-    if (checkedId == R.id.rbtn_mode_paddle && paddleToggleVisible) return OCR_MODE_PADDLE;
-    return OCR_MODE_ROBUST;
+  private void showOcrPrepModeDialog() {
+    getParentFragmentManager()
+        .setFragmentResultListener(
+            OptionsDialogFragment.REQUEST_KEY,
+            getViewLifecycleOwner(),
+            (requestKey, bundle) -> {
+              prepareReprocessAfterModelChange();
+              getParentFragmentManager()
+                  .clearFragmentResultListener(OptionsDialogFragment.REQUEST_KEY);
+            });
+    OptionsDialogFragment.show(getParentFragmentManager(), OptionsDialogFragment.Section.OCR);
   }
 
   /** Open a small dialog with OCR model actions. */

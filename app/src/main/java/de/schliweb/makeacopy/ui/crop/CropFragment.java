@@ -529,8 +529,7 @@ public class CropFragment extends Fragment {
       android.content.SharedPreferences prefs =
           ctx.getSharedPreferences("export_options", android.content.Context.MODE_PRIVATE);
       return prefs.getBoolean(
-          de.schliweb.makeacopy.ui.camera.CameraOptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE,
-          false);
+          de.schliweb.makeacopy.ui.options.OptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE, false);
     } catch (Throwable ignored) {
       return false;
     }

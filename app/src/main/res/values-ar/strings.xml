@@ -180,7 +180,6 @@
     <string name="pdf_text_layer_mode_title">طبقة نص PDF</string>
     <string name="pdf_text_layer_mode_line_based">مستندة إلى الأسطر (موصى بها)</string>
     <string name="pdf_text_layer_mode_word_positioned">موضوعة حسب الكلمات (للتوافق)</string>
-    <string name="export_options_title">خيارات التصدير</string>
     <string name="btn_options">خيارات</string>
     <string name="btn_save">حفظ</string>
     <string name="btn_new">مسح جديد</string>
@@ -242,13 +241,11 @@
 
     <!-- OCR prep modes selection -->
     <string name="ocr_choose_prep_mode_menu">وضع التعرّف…</string>
-    <string name="ocr_choose_prep_mode_title">اختر وضع التعرّف</string>
     <string name="ocr_mode_original">الأصلية (بدون معالجة مسبقة)</string>
     <string name="ocr_mode_quick">OpenCV Quick (سريع)</string>
     <string name="ocr_mode_robust">OpenCV Robust (جودة عالية)</string>
     <string name="opt_paddle_best_ocr">أفضل جودة Paddle OCR (أبطأ)</string>
     <string name="opt_multi_column_ocr">تخطيط متعدد الأعمدة (صحف ومجلات)</string>
-    <string name="ocr_prep_mode_set">تم تعيين وضع التعرّف إلى %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">اللغة</string>

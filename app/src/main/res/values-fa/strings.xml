@@ -184,7 +184,6 @@
     <string name="pdf_text_layer_mode_title">لایهٔ متن PDF</string>
     <string name="pdf_text_layer_mode_line_based">مبتنی بر خط (توصیه‌شده)</string>
     <string name="pdf_text_layer_mode_word_positioned">موقعیت‌دهی بر اساس واژه (سازگاری)</string>
-    <string name="export_options_title">گزینه‌های خروجی</string>
     <string name="btn_options">گزینه‌ها</string>
     <string name="btn_save">ذخیره</string>
     <string name="btn_new">اسکن جدید</string>
@@ -246,13 +245,11 @@
 
     <!-- OCR prep modes selection -->
     <string name="ocr_choose_prep_mode_menu">حالت تشخیص…</string>
-    <string name="ocr_choose_prep_mode_title">حالت تشخیص را انتخاب کنید</string>
     <string name="ocr_mode_original">اصلی (بدون پیش‌پردازش)</string>
     <string name="ocr_mode_quick">OpenCV Quick (سریع)</string>
     <string name="ocr_mode_robust">OpenCV Robust (کیفیت بالا)</string>
     <string name="opt_paddle_best_ocr">بهترین کیفیت Paddle OCR (کندتر)</string>
     <string name="opt_multi_column_ocr">چیدمان چندستونی (روزنامه‌ها، مجلات)</string>
-    <string name="ocr_prep_mode_set">حالت تشخیص روی %1$s تنظیم شد</string>
 
     <!-- Labels -->
     <string name="label_language">زبان</string>

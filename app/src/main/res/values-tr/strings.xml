@@ -184,7 +184,6 @@
     <string name="pdf_text_layer_mode_title">PDF metin katmanı</string>
     <string name="pdf_text_layer_mode_line_based">Satır tabanlı (önerilir)</string>
     <string name="pdf_text_layer_mode_word_positioned">Kelime konumlu (uyumluluk)</string>
-    <string name="export_options_title">Dışa aktarım seçenekleri</string>
     <string name="btn_options">Seçenekler</string>
     <string name="btn_save">Kaydet</string>
     <string name="btn_new">Yeni tarama</string>
@@ -246,13 +245,11 @@
 
     <!-- OCR tanıma modu seçimi -->
     <string name="ocr_choose_prep_mode_menu">Tanıma modu…</string>
-    <string name="ocr_choose_prep_mode_title">Tanıma modunu seçin</string>
     <string name="ocr_mode_original">Orijinal (ön işleme yok)</string>
     <string name="ocr_mode_quick">OpenCV Quick (hızlı)</string>
     <string name="ocr_mode_robust">OpenCV Robust (yüksek kalite)</string>
     <string name="opt_paddle_best_ocr">En iyi Paddle OCR kalitesi (daha yavaş)</string>
     <string name="opt_multi_column_ocr">Çok sütunlu düzen (gazeteler, dergiler)</string>
-    <string name="ocr_prep_mode_set">Tanıma modu %1$s olarak ayarlandı</string>
 
     <!-- Labels -->
     <string name="label_language">Dil</string>

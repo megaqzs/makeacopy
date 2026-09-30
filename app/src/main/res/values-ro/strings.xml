@@ -188,7 +188,6 @@
     <string name="pdf_text_layer_mode_title">Strat de text PDF</string>
     <string name="pdf_text_layer_mode_line_based">Bazat pe linii (recomandat)</string>
     <string name="pdf_text_layer_mode_word_positioned">Poziționat pe cuvinte (compatibilitate)</string>
-    <string name="export_options_title">Opțiuni de export</string>
     <string name="btn_options">Opțiuni</string>
     <string name="btn_save">Salvează</string>
     <string name="btn_new">Scanare nouă</string>
@@ -251,13 +250,11 @@
 
     <!-- Selectarea modului de recunoaștere OCR -->
     <string name="ocr_choose_prep_mode_menu">Mod de recunoaștere…</string>
-    <string name="ocr_choose_prep_mode_title">Alege modul de recunoaștere</string>
     <string name="ocr_mode_original">Original (fără preprocesare)</string>
     <string name="ocr_mode_quick">OpenCV Quick (rapid)</string>
     <string name="ocr_mode_robust">OpenCV Robust (calitate ridicată)</string>
     <string name="opt_paddle_best_ocr">Cea mai bună calitate Paddle OCR (mai lent)</string>
     <string name="opt_multi_column_ocr">Aspect pe mai multe coloane (ziare, reviste)</string>
-    <string name="ocr_prep_mode_set">Modul de recunoaștere setat la %1$s</string>
 
 
     <!-- Labels -->

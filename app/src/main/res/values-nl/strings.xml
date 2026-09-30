@@ -187,7 +187,6 @@
     <string name="pdf_text_layer_mode_title">PDF-tekstlaag</string>
     <string name="pdf_text_layer_mode_line_based">Regelgebaseerd (aanbevolen)</string>
     <string name="pdf_text_layer_mode_word_positioned">Woordgepositioneerd (compatibiliteit)</string>
-    <string name="export_options_title">Exportopties</string>
     <string name="btn_options">Opties</string>
     <string name="btn_save">Opslaan</string>
     <string name="btn_new">Nieuwe scan</string>
@@ -249,13 +248,11 @@
 
     <!-- OCR-herkenningsmodi – selectie -->
     <string name="ocr_choose_prep_mode_menu">Herkenningsmodus…</string>
-    <string name="ocr_choose_prep_mode_title">Kies herkenningsmodus</string>
     <string name="ocr_mode_original">Origineel (geen voorbewerking)</string>
     <string name="ocr_mode_quick">OpenCV Quick (snel)</string>
     <string name="ocr_mode_robust">OpenCV Robust (hoge kwaliteit)</string>
     <string name="opt_paddle_best_ocr">Beste Paddle OCR-kwaliteit (langzamer)</string>
     <string name="opt_multi_column_ocr">Meerkoloms lay-out (kranten, tijdschriften)</string>
-    <string name="ocr_prep_mode_set">Herkenningsmodus ingesteld op %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Taal</string>

@@ -9,7 +9,6 @@
  */
 package de.schliweb.makeacopy.ui.export;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,49 +19,37 @@ import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import de.schliweb.makeacopy.R;
+import de.schliweb.makeacopy.settings.SettingsCatalog;
 import de.schliweb.makeacopy.utils.export.PageFormat;
 import de.schliweb.makeacopy.utils.export.PdfCreator;
 import de.schliweb.makeacopy.utils.export.PdfQualityPreset;
 import de.schliweb.makeacopy.utils.export.jpeg.JpegExportOptions;
 import de.schliweb.makeacopy.utils.image.DocumentCleanupMode;
 import de.schliweb.makeacopy.utils.infra.FeatureFlags;
-import de.schliweb.makeacopy.utils.ui.DialogUtils;
+import de.schliweb.makeacopy.utils.ui.UIUtils;
 
 /**
- * A dialog fragment that displays export options for the user to configure. Options include
- * selecting whether to include OCR data, exporting as JPEG or PDF, enabling grayscale conversion,
- * and choosing specific PDF or JPEG settings.
- *
- * <p>This dialog allows users to modify their preferences for exporting content and persists these
- * settings for future use. Once the user confirms their choices, the selected options are sent back
- * via a result bundle.
- *
- * <p>Constants: - REQUEST_KEY: The key for retrieving the fragment result. - BUNDLE_INCLUDE_OCR:
- * Key for including or excluding OCR data in export. - BUNDLE_EXPORT_AS_JPEG: Key for exporting the
- * output as JPEG format. - BUNDLE_CONVERT_TO_GRAYSCALE: Key for converting the output to grayscale.
- * - BUNDLE_JPEG_MODE: Key for specifying the JPEG export mode, represented as an enum name. -
- * BUNDLE_PDF_PRESET: Key for defining the PDF export quality preset, also represented as an enum
- * name.
- *
- * <p>Overrides: - onCreateDialog(Bundle): Creates and initializes the dialog with its UI and logic.
- *
- * <p>Methods: - show(FragmentManager): Static method to show the dialog using the provided
- * FragmentManager. - updateGroups(boolean, View, View): Private helper method to toggle visibility
- * between PDF and JPEG option groups within the dialog.
+ * The export options (OCR text file, document cleanup, PDF and JPEG output, inbox mode) as one
+ * reusable block: {@code panel_export_options.xml} plus the code that fills it from the saved
+ * settings and writes the choices back. The export options dialog and the camera options dialog
+ * both embed it, so the options exist once.
  */
-public class ExportOptionsDialogFragment extends DialogFragment {
+public final class ExportOptionsPanel {
 
-  private ActivityResultLauncher<Uri> inboxFolderLauncher;
-  private TextView inboxFolderLabel;
-  private CheckBox cbInboxEnabled;
+  /** Which output format groups the panel shows. */
+  public enum Formats {
+    /** Only the group of the format currently selected on the Export screen. */
+    CURRENT,
+    /** PDF and JPEG side by side, each with its own heading. */
+    ALL
+  }
 
+  /** Result key and bundle keys the Export screen listens for after the dialog is confirmed. */
   public static final String REQUEST_KEY = "export_options";
+
   public static final String BUNDLE_INCLUDE_OCR = "include_ocr";
   public static final String BUNDLE_EXPORT_AS_JPEG = "export_as_jpeg";
   public static final String BUNDLE_JPEG_MODE = "jpeg_mode"; // enum name
@@ -70,74 +57,117 @@ public class ExportOptionsDialogFragment extends DialogFragment {
   public static final String BUNDLE_PAGE_FORMAT = "page_format"; // enum name
   public static final String BUNDLE_PDF_TEXT_LAYER_MODE = "pdf_text_layer_mode"; // enum name
 
-  public static void show(@NonNull FragmentManager fm) {
-    new ExportOptionsDialogFragment().show(fm, "ExportOptionsDialogFragment");
+  private final View root;
+  private final CheckBox cbIncludeOcr;
+  private final CheckBox cbInboxEnabled;
+  private final TextView inboxFolderLabel;
+  @Nullable private ActivityResultLauncher<Uri> inboxFolderLauncher;
+
+  public ExportOptionsPanel(@NonNull View root) {
+    this.root = root;
+    cbIncludeOcr = root.findViewById(R.id.dialog_checkbox_include_ocr);
+    cbInboxEnabled = root.findViewById(R.id.dialog_checkbox_inbox_enabled);
+    inboxFolderLabel = root.findViewById(R.id.dialog_inbox_folder_label);
   }
 
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    inboxFolderLauncher =
-        registerForActivityResult(
-            new ActivityResultContracts.OpenDocumentTree(),
-            uri -> {
-              if (uri != null && getContext() != null) {
-                // Persist permission across reboots
-                int flags =
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-                getContext().getContentResolver().takePersistableUriPermission(uri, flags);
-                ExportPrefsHelper.setInboxUri(getContext(), uri.toString());
-                ExportPrefsHelper.setInboxEnabled(getContext(), true);
-                if (cbInboxEnabled != null) cbInboxEnabled.setChecked(true);
-                updateInboxFolderLabel();
-              }
-            });
-  }
-
-  private void updateInboxFolderLabel() {
-    if (inboxFolderLabel == null || getContext() == null) return;
-    String uri = ExportPrefsHelper.getInboxUri(getContext());
-    if (uri != null) {
-      // Show last path segment for readability
-      Uri parsed = Uri.parse(uri);
-      String display = parsed.getLastPathSegment();
-      if (display == null) display = uri;
-      inboxFolderLabel.setText(getString(R.string.inbox_folder_set, display));
-    } else {
-      inboxFolderLabel.setText(R.string.inbox_folder_none);
-    }
-  }
-
-  @NonNull
-  @Override
-  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    Context ctx = requireContext();
-    View view = getLayoutInflater().inflate(R.layout.dialog_export_options, null);
-    SharedPreferences prefs = ctx.getSharedPreferences("export_options", Context.MODE_PRIVATE);
-
-    CheckBox cbIncludeOcr = view.findViewById(R.id.dialog_checkbox_include_ocr);
+  /**
+   * Fills the controls from the saved settings.
+   *
+   * @param inboxFolderLauncher the host fragment's document-tree launcher, registered in its {@code
+   *     onCreate}; its result goes to {@link #onInboxFolderPicked}. {@code null} hides the folder
+   *     button.
+   */
+  public void bind(
+      @NonNull Context ctx,
+      @NonNull Formats formats,
+      @Nullable ActivityResultLauncher<Uri> inboxFolderLauncher) {
+    this.inboxFolderLauncher = inboxFolderLauncher;
+    SharedPreferences prefs = prefs(ctx);
     cbIncludeOcr.setChecked(prefs.getBoolean("include_ocr", false));
-    restoreRadioSelections(ctx, view, prefs);
-    setupInboxMode(ctx, view);
+    restoreRadioSelections(ctx, prefs);
+    setupInboxMode(ctx);
+    showFormatGroups(formats, ExportPrefsHelper.isExportAsJpeg(ctx));
+  }
 
-    // Format (PDF/JPEG) is selected inline on the Export screen; the dialog only shows the
-    // option groups matching the currently selected format.
-    updateGroups(
-        prefs.getBoolean("export_as_jpeg", false),
-        view.findViewById(R.id.dialog_pdf_group),
-        view.findViewById(R.id.dialog_jpeg_group));
+  /** Persists the choices and returns them as the result bundle the Export screen listens for. */
+  @NonNull
+  public Bundle apply(@NonNull Context ctx) {
+    boolean includeOcr = cbIncludeOcr.isChecked();
+    boolean asJpeg = ExportPrefsHelper.isExportAsJpeg(ctx);
+    int jpegCheckedId = checkedId(R.id.dialog_jpeg_mode_group);
+    JpegExportOptions.Mode mode = jpegModeFor(jpegCheckedId);
+    boolean jpegGray = jpegCheckedId == R.id.dialog_radio_jpeg_auto;
+    // null = none/original
+    String pdfBwMode = pdfBwModeFor(checkedId(R.id.dialog_pdf_bw_mode_group));
+    DocumentCleanupMode cleanupMode = cleanupModeFor(checkedId(R.id.dialog_document_cleanup_group));
+    PdfQualityPreset preset = presetFor(checkedId(R.id.dialog_pdf_preset_group));
+    PageFormat pageFormat = pageFormatFor(checkedId(R.id.dialog_page_format_group));
+    PdfCreator.TextLayerMode textLayerMode =
+        textLayerModeFor(checkedId(R.id.dialog_pdf_text_layer_mode_group));
 
-    return DialogUtils.createOptionsBottomSheet(
-        ctx,
-        getString(R.string.export_options_title),
-        view,
-        () -> applySelections(ctx, view, prefs, cbIncludeOcr.isChecked()));
+    SharedPreferences.Editor editor =
+        prefs(ctx)
+            .edit()
+            .putBoolean("include_ocr", includeOcr)
+            .putBoolean("export_as_jpeg", asJpeg)
+            .putString("jpeg_mode", mode.name())
+            .putBoolean("jpeg_output_grayscale", jpegGray)
+            .putString("document_cleanup_mode", cleanupMode.name())
+            .putString("pdf_preset", preset.name())
+            .putString("page_format", pageFormat.name())
+            .putString("pdf_text_layer_mode", textLayerMode.name());
+    if (pdfBwMode != null) editor.putString("pdf_bw_mode", pdfBwMode);
+    else editor.remove("pdf_bw_mode");
+    editor.apply();
+
+    Bundle result = new Bundle();
+    result.putBoolean(BUNDLE_INCLUDE_OCR, includeOcr);
+    result.putBoolean(BUNDLE_EXPORT_AS_JPEG, asJpeg);
+    result.putString(BUNDLE_JPEG_MODE, mode.name());
+    result.putBoolean("jpeg_output_grayscale", jpegGray);
+    result.putString("document_cleanup_mode", cleanupMode.name());
+    if (pdfBwMode != null) result.putString("pdf_bw_mode", pdfBwMode);
+    result.putString(BUNDLE_PDF_PRESET, preset.name());
+    result.putString(BUNDLE_PAGE_FORMAT, pageFormat.name());
+    result.putString(BUNDLE_PDF_TEXT_LAYER_MODE, textLayerMode.name());
+    return result;
+  }
+
+  /** Greys out the options that only make sense with OCR: the text file and the PDF text layer. */
+  public void setOcrDependentEnabled(boolean enabled) {
+    UIUtils.setEnabledWithAlpha(cbIncludeOcr, enabled);
+    UIUtils.setEnabledWithAlpha(root.findViewById(R.id.dialog_pdf_text_layer_mode_group), enabled);
+  }
+
+  /** The host's document-tree launcher delivered a folder: remember it and switch inbox mode on. */
+  public void onInboxFolderPicked(@NonNull Context ctx, @NonNull Uri uri) {
+    // Persist permission across reboots
+    int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+    ctx.getContentResolver().takePersistableUriPermission(uri, flags);
+    ExportPrefsHelper.setInboxUri(ctx, uri.toString());
+    ExportPrefsHelper.setInboxEnabled(ctx, true);
+    if (cbInboxEnabled != null) cbInboxEnabled.setChecked(true);
+    updateInboxFolderLabel(ctx);
+  }
+
+  private static SharedPreferences prefs(Context ctx) {
+    return ctx.getSharedPreferences(SettingsCatalog.PREFS_MAIN, Context.MODE_PRIVATE);
+  }
+
+  private void showFormatGroups(Formats formats, boolean exportJpeg) {
+    View pdfGroup = root.findViewById(R.id.dialog_pdf_group);
+    View jpegGroup = root.findViewById(R.id.dialog_jpeg_group);
+    boolean all = formats == Formats.ALL;
+    pdfGroup.setVisibility(all || !exportJpeg ? View.VISIBLE : View.GONE);
+    jpegGroup.setVisibility(all || exportJpeg ? View.VISIBLE : View.GONE);
+    root.findViewById(R.id.dialog_pdf_heading).setVisibility(all ? View.VISIBLE : View.GONE);
+    root.findViewById(R.id.dialog_jpeg_heading).setVisibility(all ? View.VISIBLE : View.GONE);
   }
 
   /**
    * Pre-selects the radio buttons from the saved options. Mutual exclusivity is the groups' job.
    */
-  private void restoreRadioSelections(Context ctx, View view, SharedPreferences prefs) {
+  private void restoreRadioSelections(Context ctx, SharedPreferences prefs) {
     // Legacy booleans removed; selection now driven solely by pdf_bw_mode
     JpegExportOptions.Mode jpegMode;
     try {
@@ -157,42 +187,41 @@ public class ExportOptionsDialogFragment extends DialogFragment {
             : PdfQualityPreset.STANDARD;
 
     check(
-        view,
         R.id.dialog_document_cleanup_group,
         cleanupRadioId(ExportPrefsHelper.resolveCleanupMode(ctx)));
     check(
-        view,
         R.id.dialog_page_format_group,
         pageFormatRadioId(PageFormat.fromName(pageFormatSaved, PageFormat.FIT_TO_IMAGE)));
     check(
-        view,
         R.id.dialog_pdf_text_layer_mode_group,
         textLayerRadioId(ExportPrefsHelper.resolveTextLayerMode(ctx)));
-    check(view, R.id.dialog_pdf_preset_group, presetRadioId(preset));
+    check(R.id.dialog_pdf_preset_group, presetRadioId(preset));
     check(
-        view,
         R.id.dialog_jpeg_mode_group,
         jpegRadioId(jpegMode, prefs.getBoolean("jpeg_output_grayscale", false)));
     // "none" selected if no saved value
-    check(view, R.id.dialog_pdf_bw_mode_group, pdfBwRadioId(prefs.getString("pdf_bw_mode", null)));
+    check(R.id.dialog_pdf_bw_mode_group, pdfBwRadioId(prefs.getString("pdf_bw_mode", null)));
   }
 
   /** Checks the radio button, or keeps the layout's default when there is none to check. */
-  private static void check(View view, int groupId, int radioId) {
+  private void check(int groupId, int radioId) {
     if (radioId == View.NO_ID) return;
-    RadioGroup group = view.findViewById(groupId);
+    RadioGroup group = root.findViewById(groupId);
     group.check(radioId);
   }
 
-  private void setupInboxMode(Context ctx, View view) {
-    View inboxGroup = view.findViewById(R.id.dialog_inbox_group);
-    cbInboxEnabled = view.findViewById(R.id.dialog_checkbox_inbox_enabled);
-    inboxFolderLabel = view.findViewById(R.id.dialog_inbox_folder_label);
+  private int checkedId(int groupId) {
+    RadioGroup group = root.findViewById(groupId);
+    return group.getCheckedRadioButtonId();
+  }
+
+  private void setupInboxMode(Context ctx) {
+    View inboxGroup = root.findViewById(R.id.dialog_inbox_group);
     if (!FeatureFlags.isInboxModeEnabled() || inboxGroup == null) return;
 
     inboxGroup.setVisibility(View.VISIBLE);
     cbInboxEnabled.setChecked(ExportPrefsHelper.isInboxEnabled(ctx));
-    updateInboxFolderLabel();
+    updateInboxFolderLabel(ctx);
 
     cbInboxEnabled.setOnCheckedChangeListener(
         (buttonView, isChecked) -> {
@@ -206,23 +235,27 @@ public class ExportOptionsDialogFragment extends DialogFragment {
           ExportPrefsHelper.setInboxEnabled(ctx, isChecked);
         });
 
-    View btnInboxSelect = view.findViewById(R.id.dialog_button_inbox_select);
+    View btnInboxSelect = root.findViewById(R.id.dialog_button_inbox_select);
     if (btnInboxSelect != null) {
-      btnInboxSelect.setOnClickListener(v2 -> inboxFolderLauncher.launch(null));
+      btnInboxSelect.setVisibility(inboxFolderLauncher != null ? View.VISIBLE : View.GONE);
+      btnInboxSelect.setOnClickListener(
+          v2 -> {
+            if (inboxFolderLauncher != null) inboxFolderLauncher.launch(null);
+          });
     }
-    View btnInboxClear = view.findViewById(R.id.dialog_button_inbox_clear);
+    View btnInboxClear = root.findViewById(R.id.dialog_button_inbox_clear);
     if (btnInboxClear != null) {
       btnInboxClear.setOnClickListener(
           v2 -> {
             ExportPrefsHelper.clearInbox(ctx);
             cbInboxEnabled.setChecked(false);
-            updateInboxFolderLabel();
+            updateInboxFolderLabel(ctx);
           });
     }
 
-    setupInboxFilenameSpinner(ctx, view.findViewById(R.id.dialog_inbox_filename_spinner));
+    setupInboxFilenameSpinner(ctx, root.findViewById(R.id.dialog_inbox_filename_spinner));
 
-    CheckBox cbAutoNewScan = view.findViewById(R.id.dialog_checkbox_inbox_auto_new_scan);
+    CheckBox cbAutoNewScan = root.findViewById(R.id.dialog_checkbox_inbox_auto_new_scan);
     if (cbAutoNewScan != null) {
       cbAutoNewScan.setChecked(ExportPrefsHelper.isInboxAutoNewScan(ctx));
       cbAutoNewScan.setOnCheckedChangeListener(
@@ -230,12 +263,26 @@ public class ExportOptionsDialogFragment extends DialogFragment {
     }
   }
 
+  private void updateInboxFolderLabel(Context ctx) {
+    if (inboxFolderLabel == null) return;
+    String uri = ExportPrefsHelper.getInboxUri(ctx);
+    if (uri != null) {
+      // Show last path segment for readability
+      Uri parsed = Uri.parse(uri);
+      String display = parsed.getLastPathSegment();
+      if (display == null) display = uri;
+      inboxFolderLabel.setText(ctx.getString(R.string.inbox_folder_set, display));
+    } else {
+      inboxFolderLabel.setText(R.string.inbox_folder_none);
+    }
+  }
+
   private void setupInboxFilenameSpinner(Context ctx, android.widget.Spinner filenameSpinner) {
     if (filenameSpinner == null) return;
     String[] templateLabels = {
-      getString(R.string.inbox_filename_date_scan),
-      getString(R.string.inbox_filename_date_time_scan),
-      getString(R.string.inbox_filename_date_only)
+      ctx.getString(R.string.inbox_filename_date_scan),
+      ctx.getString(R.string.inbox_filename_date_time_scan),
+      ctx.getString(R.string.inbox_filename_date_only)
     };
     String[] templateValues = {"date_scan", "date_time_scan", "date_only"};
     android.widget.ArrayAdapter<String> adapter =
@@ -262,56 +309,6 @@ public class ExportOptionsDialogFragment extends DialogFragment {
           @Override
           public void onNothingSelected(android.widget.AdapterView<?> parent) {}
         });
-  }
-
-  /** Reads the dialog's selections, persists them and hands them to the Export screen. */
-  private void applySelections(
-      Context ctx, View view, SharedPreferences prefs, boolean includeOcr) {
-    boolean asJpeg = ExportPrefsHelper.isExportAsJpeg(ctx);
-    int jpegCheckedId = checkedId(view, R.id.dialog_jpeg_mode_group);
-    JpegExportOptions.Mode mode = jpegModeFor(jpegCheckedId);
-    boolean jpegGray = jpegCheckedId == R.id.dialog_radio_jpeg_auto;
-    // null = none/original
-    String pdfBwMode = pdfBwModeFor(checkedId(view, R.id.dialog_pdf_bw_mode_group));
-    DocumentCleanupMode cleanupMode =
-        cleanupModeFor(checkedId(view, R.id.dialog_document_cleanup_group));
-    PdfQualityPreset preset = presetFor(checkedId(view, R.id.dialog_pdf_preset_group));
-    PageFormat pageFormat = pageFormatFor(checkedId(view, R.id.dialog_page_format_group));
-    PdfCreator.TextLayerMode textLayerMode =
-        textLayerModeFor(checkedId(view, R.id.dialog_pdf_text_layer_mode_group));
-
-    // persist
-    SharedPreferences.Editor editor =
-        prefs
-            .edit()
-            .putBoolean("include_ocr", includeOcr)
-            .putBoolean("export_as_jpeg", asJpeg)
-            .putString("jpeg_mode", mode.name())
-            .putBoolean("jpeg_output_grayscale", jpegGray)
-            .putString("document_cleanup_mode", cleanupMode.name())
-            .putString("pdf_preset", preset.name())
-            .putString("page_format", pageFormat.name())
-            .putString("pdf_text_layer_mode", textLayerMode.name());
-    if (pdfBwMode != null) editor.putString("pdf_bw_mode", pdfBwMode);
-    else editor.remove("pdf_bw_mode");
-    editor.apply();
-
-    Bundle result = new Bundle();
-    result.putBoolean(BUNDLE_INCLUDE_OCR, includeOcr);
-    result.putBoolean(BUNDLE_EXPORT_AS_JPEG, asJpeg);
-    result.putString(BUNDLE_JPEG_MODE, mode.name());
-    result.putBoolean("jpeg_output_grayscale", jpegGray);
-    result.putString("document_cleanup_mode", cleanupMode.name());
-    if (pdfBwMode != null) result.putString("pdf_bw_mode", pdfBwMode);
-    result.putString(BUNDLE_PDF_PRESET, preset.name());
-    result.putString(BUNDLE_PAGE_FORMAT, pageFormat.name());
-    result.putString(BUNDLE_PDF_TEXT_LAYER_MODE, textLayerMode.name());
-    getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
-  }
-
-  private static int checkedId(View view, int groupId) {
-    RadioGroup group = view.findViewById(groupId);
-    return group.getCheckedRadioButtonId();
   }
 
   // ---- saved option <-> radio button (pure mappings) ----
@@ -401,10 +398,5 @@ public class ExportOptionsDialogFragment extends DialogFragment {
     if (radioId == R.id.dialog_pdf_bw_classic) return "CLASSIC";
     if (radioId == R.id.dialog_pdf_bw_robust) return "ROBUST";
     return null;
-  }
-
-  private void updateGroups(boolean exportJpeg, View pdfGroup, View jpegGroup) {
-    pdfGroup.setVisibility(exportJpeg ? View.GONE : View.VISIBLE);
-    jpegGroup.setVisibility(exportJpeg ? View.VISIBLE : View.GONE);
   }
 }

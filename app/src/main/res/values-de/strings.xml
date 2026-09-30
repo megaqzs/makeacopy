@@ -191,7 +191,6 @@
     <string name="pdf_text_layer_mode_title">PDF-Textebene</string>
     <string name="pdf_text_layer_mode_line_based">Zeilenbasiert (empfohlen)</string>
     <string name="pdf_text_layer_mode_word_positioned">Wortpositioniert (Kompatibilität)</string>
-    <string name="export_options_title">Export-Optionen</string>
     <string name="btn_options">Optionen</string>
     <string name="btn_save">Speichern</string>
     <string name="btn_new">Neuer Scan</string>
@@ -255,14 +254,12 @@
 
     <!-- Auswahl des Erkennungsmodus -->
     <string name="ocr_choose_prep_mode_menu">Erkennungsmodus…</string>
-    <string name="ocr_choose_prep_mode_title">Erkennungsmodus auswählen</string>
     <string name="ocr_mode_original">Original (ohne Vorverarbeitung)</string>
     <string name="ocr_mode_quick">OpenCV Schnell (schnell)</string>
     <string name="ocr_mode_robust">OpenCV Robust (hohe Qualität)</string>
     <string name="ocr_mode_paddle">PaddleOCR (experimentell, ohne Vorverarbeitung)</string>
     <string name="opt_paddle_best_ocr">Beste Paddle-OCR-Qualität (langsamer)</string>
     <string name="opt_multi_column_ocr">Mehrspaltiges Layout (Zeitungen, Zeitschriften)</string>
-    <string name="ocr_prep_mode_set">Erkennungsmodus gesetzt: %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Sprache</string>

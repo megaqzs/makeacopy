@@ -9,7 +9,7 @@ Implementation: `FocusQualityAnalyzer` (Laplacian variance, ThreadLocal Mats), `
 (`FEATURE_FOCUS_QUALITY_INDICATOR`, default `true`; runtime override via
 `FeatureFlags.setFocusQualityIndicatorOverride`). On top of the build flag, the user controls the
 indicator via its own checkbox in the camera options dialog
-(`CameraOptionsDialogFragment.BUNDLE_FOCUS_QUALITY_INDICATOR`); the setting is independent of the
+(`OptionsDialogFragment.BUNDLE_FOCUS_QUALITY_INDICATOR`); the setting is independent of the
 live corner detection preference — when only the indicator is enabled, the analysis pipeline runs
 without corner detection and the sharpness ROI falls back to the full frame.
 

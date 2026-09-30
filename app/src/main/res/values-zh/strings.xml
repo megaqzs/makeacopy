@@ -179,7 +179,6 @@
     <string name="pdf_text_layer_mode_title">PDF 文本层</string>
     <string name="pdf_text_layer_mode_line_based">基于行（推荐）</string>
     <string name="pdf_text_layer_mode_word_positioned">按词定位（兼容性）</string>
-    <string name="export_options_title">导出选项</string>
     <string name="btn_options">选项</string>
     <string name="btn_save">保存</string>
     <string name="btn_new">新扫描</string>
@@ -235,13 +234,11 @@
 
     <!-- OCR 识别模式选择 -->
     <string name="ocr_choose_prep_mode_menu">识别模式…</string>
-    <string name="ocr_choose_prep_mode_title">选择识别模式</string>
     <string name="ocr_mode_original">原始（无预处理）</string>
     <string name="ocr_mode_quick">OpenCV Quick（快速）</string>
     <string name="ocr_mode_robust">OpenCV Robust（高质量）</string>
     <string name="opt_paddle_best_ocr">最佳 Paddle OCR 质量（较慢）</string>
     <string name="opt_multi_column_ocr">多栏版式（报纸、杂志）</string>
-    <string name="ocr_prep_mode_set">识别模式已设置为 %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">语言</string>

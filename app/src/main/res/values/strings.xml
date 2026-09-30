@@ -201,7 +201,6 @@
     <string name="pdf_text_layer_mode_title">PDF text layer</string>
     <string name="pdf_text_layer_mode_line_based">Line-based (recommended)</string>
     <string name="pdf_text_layer_mode_word_positioned">Word-positioned (compatibility)</string>
-    <string name="export_options_title">Export options</string>
     <!-- Page format selection (PDF export) -->
     <string name="page_format_label">Page size</string>
     <string name="page_format_fit">Fit to image (recommended)</string>
@@ -269,14 +268,12 @@
 
     <!-- OCR prep modes selection -->
     <string name="ocr_choose_prep_mode_menu">Recognition mode…</string>
-    <string name="ocr_choose_prep_mode_title">Choose recognition mode</string>
     <string name="ocr_mode_original">Original (no preprocessing)</string>
     <string name="ocr_mode_quick">OpenCV Quick (fast)</string>
     <string name="ocr_mode_robust">OpenCV Robust (high quality)</string>
     <string name="ocr_mode_paddle" tools:ignore="MissingTranslation">PaddleOCR (experimental, no preprocessing)</string>
     <string name="opt_paddle_best_ocr">Best Paddle OCR quality (slower)</string>
     <string name="opt_multi_column_ocr">Multi-column layout (newspapers, magazines)</string>
-    <string name="ocr_prep_mode_set">Recognition mode set to %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Language</string>

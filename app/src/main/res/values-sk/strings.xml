@@ -190,7 +190,6 @@
     <string name="pdf_text_layer_mode_title">Textová vrstva PDF</string>
     <string name="pdf_text_layer_mode_line_based">Podľa riadkov (odporúčané)</string>
     <string name="pdf_text_layer_mode_word_positioned">Podľa pozícií slov (kompatibilita)</string>
-    <string name="export_options_title">Možnosti exportu</string>
     <string name="btn_options">Možnosti</string>
     <string name="btn_save">Uložiť</string>
     <string name="btn_new">Nové skenovanie</string>
@@ -253,13 +252,11 @@
 
     <!-- Výber režimu rozpoznávania OCR -->
     <string name="ocr_choose_prep_mode_menu">Režim rozpoznávania…</string>
-    <string name="ocr_choose_prep_mode_title">Vyberte režim rozpoznávania</string>
     <string name="ocr_mode_original">Originál (bez predspracovania)</string>
     <string name="ocr_mode_quick">OpenCV Quick (rýchly)</string>
     <string name="ocr_mode_robust">OpenCV Robust (vysoká kvalita)</string>
     <string name="opt_paddle_best_ocr">Najlepšia kvalita Paddle OCR (pomalšie)</string>
     <string name="opt_multi_column_ocr">Viacstĺpcové rozloženie (noviny, časopisy)</string>
-    <string name="ocr_prep_mode_set">Režim rozpoznávania nastavený na %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Jazyk</string>

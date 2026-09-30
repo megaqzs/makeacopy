@@ -19,32 +19,32 @@ public class ExportOptionsRadioMappingTest {
     for (DocumentCleanupMode mode : DocumentCleanupMode.values()) {
       assertEquals(
           mode,
-          ExportOptionsDialogFragment.cleanupModeFor(
-              ExportOptionsDialogFragment.cleanupRadioId(mode)));
+          ExportOptionsPanel.cleanupModeFor(
+              ExportOptionsPanel.cleanupRadioId(mode)));
     }
-    assertEquals(DocumentCleanupMode.ORIGINAL, ExportOptionsDialogFragment.cleanupModeFor(-1));
+    assertEquals(DocumentCleanupMode.ORIGINAL, ExportOptionsPanel.cleanupModeFor(-1));
   }
 
   @Test
   public void pageFormat_roundTripsForEveryFormatWithARadioButton() {
     for (PageFormat format : PageFormat.values()) {
-      int radioId = ExportOptionsDialogFragment.pageFormatRadioId(format);
+      int radioId = ExportOptionsPanel.pageFormatRadioId(format);
       if (radioId == View.NO_ID) continue;
-      assertEquals(format, ExportOptionsDialogFragment.pageFormatFor(radioId));
+      assertEquals(format, ExportOptionsPanel.pageFormatFor(radioId));
     }
-    assertEquals(R.id.dialog_radio_page_a4, ExportOptionsDialogFragment.pageFormatRadioId(PageFormat.A4));
-    assertEquals(PageFormat.FIT_TO_IMAGE, ExportOptionsDialogFragment.pageFormatFor(-1));
+    assertEquals(R.id.dialog_radio_page_a4, ExportOptionsPanel.pageFormatRadioId(PageFormat.A4));
+    assertEquals(PageFormat.FIT_TO_IMAGE, ExportOptionsPanel.pageFormatFor(-1));
   }
 
   @Test
   public void textLayerMode_roundTrips() {
     for (PdfCreator.TextLayerMode mode : PdfCreator.TextLayerMode.values()) {
-      int radioId = ExportOptionsDialogFragment.textLayerRadioId(mode);
+      int radioId = ExportOptionsPanel.textLayerRadioId(mode);
       PdfCreator.TextLayerMode expected =
           mode == PdfCreator.TextLayerMode.WORD_POSITIONED
               ? PdfCreator.TextLayerMode.WORD_POSITIONED
               : PdfCreator.TextLayerMode.LINE_BASED;
-      assertEquals(expected, ExportOptionsDialogFragment.textLayerModeFor(radioId));
+      assertEquals(expected, ExportOptionsPanel.textLayerModeFor(radioId));
     }
   }
 
@@ -53,47 +53,47 @@ public class ExportOptionsRadioMappingTest {
     for (PdfQualityPreset preset : PdfQualityPreset.values()) {
       assertEquals(
           preset,
-          ExportOptionsDialogFragment.presetFor(ExportOptionsDialogFragment.presetRadioId(preset)));
+          ExportOptionsPanel.presetFor(ExportOptionsPanel.presetRadioId(preset)));
     }
-    assertEquals(PdfQualityPreset.STANDARD, ExportOptionsDialogFragment.presetFor(-1));
+    assertEquals(PdfQualityPreset.STANDARD, ExportOptionsPanel.presetFor(-1));
   }
 
   @Test
   public void jpeg_grayscaleIsModeNonePlusFlag() {
     assertEquals(
         R.id.dialog_radio_jpeg_none,
-        ExportOptionsDialogFragment.jpegRadioId(JpegExportOptions.Mode.NONE, false));
+        ExportOptionsPanel.jpegRadioId(JpegExportOptions.Mode.NONE, false));
     assertEquals(
         R.id.dialog_radio_jpeg_auto,
-        ExportOptionsDialogFragment.jpegRadioId(JpegExportOptions.Mode.NONE, true));
+        ExportOptionsPanel.jpegRadioId(JpegExportOptions.Mode.NONE, true));
     // BW wins over a leftover grayscale flag
     assertEquals(
         R.id.dialog_radio_jpeg_bw_text,
-        ExportOptionsDialogFragment.jpegRadioId(JpegExportOptions.Mode.BW_TEXT, true));
+        ExportOptionsPanel.jpegRadioId(JpegExportOptions.Mode.BW_TEXT, true));
 
     assertEquals(
         JpegExportOptions.Mode.NONE,
-        ExportOptionsDialogFragment.jpegModeFor(R.id.dialog_radio_jpeg_auto));
+        ExportOptionsPanel.jpegModeFor(R.id.dialog_radio_jpeg_auto));
     assertEquals(
         JpegExportOptions.Mode.BW_TEXT,
-        ExportOptionsDialogFragment.jpegModeFor(R.id.dialog_radio_jpeg_bw_text));
+        ExportOptionsPanel.jpegModeFor(R.id.dialog_radio_jpeg_bw_text));
   }
 
   @Test
   public void pdfBwMode_savedClassicIsShownAsRobust() {
-    assertEquals(R.id.dialog_pdf_bw_none, ExportOptionsDialogFragment.pdfBwRadioId(null));
-    assertEquals(R.id.dialog_pdf_bw_none, ExportOptionsDialogFragment.pdfBwRadioId("unknown"));
-    assertEquals(R.id.dialog_pdf_grayscale, ExportOptionsDialogFragment.pdfBwRadioId("grayscale"));
-    assertEquals(R.id.dialog_pdf_bw_robust, ExportOptionsDialogFragment.pdfBwRadioId("ROBUST"));
-    assertEquals(R.id.dialog_pdf_bw_robust, ExportOptionsDialogFragment.pdfBwRadioId("CLASSIC"));
+    assertEquals(R.id.dialog_pdf_bw_none, ExportOptionsPanel.pdfBwRadioId(null));
+    assertEquals(R.id.dialog_pdf_bw_none, ExportOptionsPanel.pdfBwRadioId("unknown"));
+    assertEquals(R.id.dialog_pdf_grayscale, ExportOptionsPanel.pdfBwRadioId("grayscale"));
+    assertEquals(R.id.dialog_pdf_bw_robust, ExportOptionsPanel.pdfBwRadioId("ROBUST"));
+    assertEquals(R.id.dialog_pdf_bw_robust, ExportOptionsPanel.pdfBwRadioId("CLASSIC"));
   }
 
   @Test
   public void pdfBwMode_forRadio() {
-    assertNull(ExportOptionsDialogFragment.pdfBwModeFor(R.id.dialog_pdf_bw_none));
-    assertNull(ExportOptionsDialogFragment.pdfBwModeFor(-1));
-    assertEquals("GRAYSCALE", ExportOptionsDialogFragment.pdfBwModeFor(R.id.dialog_pdf_grayscale));
-    assertEquals("ROBUST", ExportOptionsDialogFragment.pdfBwModeFor(R.id.dialog_pdf_bw_robust));
-    assertEquals("CLASSIC", ExportOptionsDialogFragment.pdfBwModeFor(R.id.dialog_pdf_bw_classic));
+    assertNull(ExportOptionsPanel.pdfBwModeFor(R.id.dialog_pdf_bw_none));
+    assertNull(ExportOptionsPanel.pdfBwModeFor(-1));
+    assertEquals("GRAYSCALE", ExportOptionsPanel.pdfBwModeFor(R.id.dialog_pdf_grayscale));
+    assertEquals("ROBUST", ExportOptionsPanel.pdfBwModeFor(R.id.dialog_pdf_bw_robust));
+    assertEquals("CLASSIC", ExportOptionsPanel.pdfBwModeFor(R.id.dialog_pdf_bw_classic));
   }
 }

@@ -189,7 +189,6 @@
     <string name="pdf_text_layer_mode_title">Capa de texto PDF</string>
     <string name="pdf_text_layer_mode_line_based">Basada en líneas (recomendado)</string>
     <string name="pdf_text_layer_mode_word_positioned">Con palabras posicionadas (compatibilidad)</string>
-    <string name="export_options_title">Opciones de exportación</string>
     <string name="btn_options">Opciones</string>
     <string name="btn_save">Guardar</string>
     <string name="btn_new">Nuevo escaneo</string>
@@ -253,13 +252,11 @@
 
     <!-- Selección de modo de reconocimiento OCR -->
     <string name="ocr_choose_prep_mode_menu">Modo de reconocimiento…</string>
-    <string name="ocr_choose_prep_mode_title">Elegir modo de reconocimiento</string>
     <string name="ocr_mode_original">Original (sin preprocesamiento)</string>
     <string name="ocr_mode_quick">OpenCV Quick (rápido)</string>
     <string name="ocr_mode_robust">OpenCV Robust (alta calidad)</string>
     <string name="opt_paddle_best_ocr">Mejor calidad de Paddle OCR (más lento)</string>
     <string name="opt_multi_column_ocr">Diseño de varias columnas (periódicos, revistas)</string>
-    <string name="ocr_prep_mode_set">Modo de reconocimiento establecido en %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Idioma</string>

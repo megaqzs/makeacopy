@@ -184,7 +184,6 @@
     <string name="pdf_text_layer_mode_title">PDF szövegréteg</string>
     <string name="pdf_text_layer_mode_line_based">Soralapú (ajánlott)</string>
     <string name="pdf_text_layer_mode_word_positioned">Szavanként pozicionált (kompatibilitás)</string>
-    <string name="export_options_title">Exportálási beállítások</string>
     <string name="btn_options">Beállítások</string>
     <string name="btn_save">Mentés</string>
     <string name="btn_new">Új szkennelés</string>
@@ -247,13 +246,11 @@
 
     <!-- OCR felismerési módok kiválasztása -->
     <string name="ocr_choose_prep_mode_menu">Felismerési mód…</string>
-    <string name="ocr_choose_prep_mode_title">Felismerési mód kiválasztása</string>
     <string name="ocr_mode_original">Eredeti (előfeldolgozás nélkül)</string>
     <string name="ocr_mode_quick">OpenCV Quick (gyors)</string>
     <string name="ocr_mode_robust">OpenCV Robust (magas minőség)</string>
     <string name="opt_paddle_best_ocr">Legjobb Paddle OCR-minőség (lassabb)</string>
     <string name="opt_multi_column_ocr">Többhasábos elrendezés (újságok, magazinok)</string>
-    <string name="ocr_prep_mode_set">Felismerési mód beállítva: %1$s</string>
 
     <!-- Labels -->
     <string name="label_language">Nyelv</string>

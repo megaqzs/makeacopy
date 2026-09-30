@@ -14,43 +14,35 @@ public class OcrPrepModeDialogTest {
 
   @Test
   public void picker_showsHiddenQuickAsRobust() {
-    assertEquals(OCR_MODE_ROBUST, OCRFragment.prepModeForPicker(OCR_MODE_QUICK, false, false));
-    assertEquals(OCR_MODE_ORIGINAL, OCRFragment.prepModeForPicker(OCR_MODE_ORIGINAL, false, false));
-    assertEquals(OCR_MODE_ROBUST, OCRFragment.prepModeForPicker(OCR_MODE_ROBUST, false, false));
+    assertEquals(OCR_MODE_ROBUST, OcrOptionsPanel.prepModeForPicker(OCR_MODE_QUICK, false, false));
+    assertEquals(OCR_MODE_ORIGINAL, OcrOptionsPanel.prepModeForPicker(OCR_MODE_ORIGINAL, false, false));
+    assertEquals(OCR_MODE_ROBUST, OcrOptionsPanel.prepModeForPicker(OCR_MODE_ROBUST, false, false));
   }
 
   @Test
   public void picker_clampsUnknownSavedModes() {
-    assertEquals(OCR_MODE_ORIGINAL, OCRFragment.prepModeForPicker(-5, false, false));
-    assertEquals(OCR_MODE_PADDLE, OCRFragment.prepModeForPicker(99, false, true));
+    assertEquals(OCR_MODE_ORIGINAL, OcrOptionsPanel.prepModeForPicker(-5, false, false));
+    assertEquals(OCR_MODE_PADDLE, OcrOptionsPanel.prepModeForPicker(99, false, true));
   }
 
   @Test
   public void picker_paddleOnlyWhileItCanBeChosen() {
-    assertEquals(OCR_MODE_ROBUST, OCRFragment.prepModeForPicker(OCR_MODE_PADDLE, false, false));
-    assertEquals(OCR_MODE_PADDLE, OCRFragment.prepModeForPicker(OCR_MODE_PADDLE, false, true));
-    assertEquals(OCR_MODE_PADDLE, OCRFragment.prepModeForPicker(OCR_MODE_PADDLE, true, false));
+    assertEquals(OCR_MODE_ROBUST, OcrOptionsPanel.prepModeForPicker(OCR_MODE_PADDLE, false, false));
+    assertEquals(OCR_MODE_PADDLE, OcrOptionsPanel.prepModeForPicker(OCR_MODE_PADDLE, false, true));
+    assertEquals(OCR_MODE_PADDLE, OcrOptionsPanel.prepModeForPicker(OCR_MODE_PADDLE, true, false));
   }
 
   @Test
   public void radio_mapsToMode() {
-    assertEquals(OCR_MODE_ORIGINAL, OCRFragment.prepModeForRadioId(R.id.rbtn_mode_original, false));
-    assertEquals(OCR_MODE_ROBUST, OCRFragment.prepModeForRadioId(R.id.rbtn_mode_robust, false));
-    assertEquals(OCR_MODE_ROBUST, OCRFragment.prepModeForRadioId(R.id.rbtn_mode_quick, false));
-    assertEquals(OCR_MODE_ROBUST, OCRFragment.prepModeForRadioId(-1, true));
+    assertEquals(OCR_MODE_ORIGINAL, OcrOptionsPanel.prepModeForRadioId(R.id.rbtn_mode_original, false));
+    assertEquals(OCR_MODE_ROBUST, OcrOptionsPanel.prepModeForRadioId(R.id.rbtn_mode_robust, false));
+    assertEquals(OCR_MODE_ROBUST, OcrOptionsPanel.prepModeForRadioId(R.id.rbtn_mode_quick, false));
+    assertEquals(OCR_MODE_ROBUST, OcrOptionsPanel.prepModeForRadioId(-1, true));
   }
 
   @Test
   public void radio_paddleNeedsTheVisibleToggle() {
-    assertEquals(OCR_MODE_PADDLE, OCRFragment.prepModeForRadioId(R.id.rbtn_mode_paddle, true));
-    assertEquals(OCR_MODE_ROBUST, OCRFragment.prepModeForRadioId(R.id.rbtn_mode_paddle, false));
-  }
-
-  @Test
-  public void toastLine_format() {
-    StringBuilder sb = new StringBuilder("Mode set");
-    OCRFragment.appendOptionState(sb, "Auto rotate", true);
-    OCRFragment.appendOptionState(sb, "Post-processing", false);
-    assertEquals("Mode set\nAuto rotate: [ON]\nPost-processing: [OFF]", sb.toString());
+    assertEquals(OCR_MODE_PADDLE, OcrOptionsPanel.prepModeForRadioId(R.id.rbtn_mode_paddle, true));
+    assertEquals(OCR_MODE_ROBUST, OcrOptionsPanel.prepModeForRadioId(R.id.rbtn_mode_paddle, false));
   }
 }

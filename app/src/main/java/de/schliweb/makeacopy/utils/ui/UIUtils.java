@@ -37,6 +37,19 @@ public class UIUtils {
   private static final String TAG = "UIUtils";
 
   /**
+   * Enables or greys out a control and, for a group such as a RadioGroup, its direct children.
+   * Disabled controls keep their state so that re-enabling restores the previous choice.
+   */
+  public static void setEnabledWithAlpha(View v, boolean enabled) {
+    if (v == null) return;
+    v.setEnabled(enabled);
+    v.setAlpha(enabled ? 1f : 0.4f);
+    if (v instanceof ViewGroup vg) {
+      for (int i = 0; i < vg.getChildCount(); i++) vg.getChildAt(i).setEnabled(enabled);
+    }
+  }
+
+  /**
    * Pads the content of a bottom bar by the system insets (navigation bar, display cutout) on top
    * of the padding declared in the layout. The bar itself keeps the full width and reaches the
    * bottom edge, so its background runs behind the navigation bar. Safe to call repeatedly.
@@ -134,7 +147,7 @@ public class UIUtils {
           appContext.getSharedPreferences("export_options", Context.MODE_PRIVATE);
       boolean a11yMode =
           prefs.getBoolean(
-              de.schliweb.makeacopy.ui.camera.CameraOptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE,
+              de.schliweb.makeacopy.ui.options.OptionsDialogFragment.BUNDLE_ACCESSIBILITY_MODE,
               false);
       Log.d(TAG, "Accessibility Mode: " + a11yMode);
       if (a11yMode) {

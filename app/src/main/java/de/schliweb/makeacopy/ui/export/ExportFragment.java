@@ -36,6 +36,7 @@ import de.schliweb.makeacopy.ui.camera.CameraViewModel;
 import de.schliweb.makeacopy.ui.crop.CropViewModel;
 import de.schliweb.makeacopy.ui.export.session.CompletedScan;
 import de.schliweb.makeacopy.ui.ocr.OCRViewModel;
+import de.schliweb.makeacopy.ui.options.OptionsDialogFragment;
 import de.schliweb.makeacopy.utils.export.*;
 import de.schliweb.makeacopy.utils.export.jpeg.JpegExportOptions;
 import de.schliweb.makeacopy.utils.export.jpeg.JpegExporter;
@@ -521,7 +522,7 @@ public class ExportFragment extends Fragment {
     exportViewModel.setConvertToGrayscale(ExportPrefsHelper.isGrayscaleFromPdfMode(context));
     setupExportFormatToggle(ExportPrefsHelper.isExportAsJpeg(context));
 
-    // Include OCR option is now managed solely via ExportOptionsDialogFragment.
+    // Include OCR option is now managed solely via the shared options dialog.
     // Keep the inline checkbox hidden and do not alter its visibility here.
 
     // Observe exporting state and progress to update progress bar (delegated)
@@ -588,7 +589,7 @@ public class ExportFragment extends Fragment {
 
     exportViewModel.getText().observe(getViewLifecycleOwner(), binding.textExport::setText);
 
-    // No inline option listeners: options are managed exclusively via ExportOptionsDialogFragment.
+    // No inline option listeners: options are managed exclusively via the shared options dialog.
     binding.buttonExport.setOnClickListener(v -> onExportClicked());
     // Options button opens the export options dialog without starting export
     binding.buttonOptions.setOnClickListener(v -> openExportOptions());
@@ -1307,14 +1308,14 @@ public class ExportFragment extends Fragment {
   private void openExportOptions() {
     getParentFragmentManager()
         .setFragmentResultListener(
-            ExportOptionsDialogFragment.REQUEST_KEY,
+            ExportOptionsPanel.REQUEST_KEY,
             getViewLifecycleOwner(),
             (requestKey, bundle) -> {
               // Update ViewModel with new choices for immediate feedback and re-render preview
               boolean exportAsJpegSel =
-                  bundle.getBoolean(ExportOptionsDialogFragment.BUNDLE_EXPORT_AS_JPEG, false);
+                  bundle.getBoolean(ExportOptionsPanel.BUNDLE_EXPORT_AS_JPEG, false);
               exportViewModel.setIncludeOcr(
-                  bundle.getBoolean(ExportOptionsDialogFragment.BUNDLE_INCLUDE_OCR, false));
+                  bundle.getBoolean(ExportOptionsPanel.BUNDLE_INCLUDE_OCR, false));
               // Derive grayscale flag for ViewModel from pdf_bw_mode (GRAYSCALE selected)
               exportViewModel.setConvertToGrayscale(
                   "GRAYSCALE".equalsIgnoreCase(bundle.getString("pdf_bw_mode", null)));
@@ -1323,9 +1324,9 @@ public class ExportFragment extends Fragment {
               renderPreviewFromCurrent();
               // No export kickoff here
               getParentFragmentManager()
-                  .clearFragmentResultListener(ExportOptionsDialogFragment.REQUEST_KEY);
+                  .clearFragmentResultListener(ExportOptionsPanel.REQUEST_KEY);
             });
-    ExportOptionsDialogFragment.show(getParentFragmentManager());
+    OptionsDialogFragment.show(getParentFragmentManager(), OptionsDialogFragment.Section.EXPORT);
   }
 
   private void markSinglePageBitmapFreshForReEdit(Bitmap bitmap) {
