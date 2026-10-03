@@ -62,7 +62,7 @@ final class PaddleLanguageRouter {
      */
     static final List<String> MODEL_KEYS =
             Collections.unmodifiableList(Arrays.asList(
-                    "en", "latin", "eslav", "cyrillic", "arabic", "devanagari", "th", "el", "zh", "hebrew"));
+                    "en", "latin", "eslav", "cyrillic", "arabic", "devanagari", "th", "el", "zh", "he"));
 
     /**
      * A mapping between language specification codes (e.g., "eng", "deu+eng")
