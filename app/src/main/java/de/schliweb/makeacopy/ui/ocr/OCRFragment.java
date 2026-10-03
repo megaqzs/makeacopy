@@ -475,6 +475,7 @@ public class OCRFragment extends Fragment {
       case "bg", "mk", "mn", "sr" -> "cyrillic";
       case "ar", "fa", "ur", "ps" -> "arabic";
       case "hi", "mr", "ne", "sa" -> "devanagari";
+      case "he" -> "he";
       case "th" -> "th";
       case "el" -> "el";
       case "zh", "ja", "ko" -> "zh";

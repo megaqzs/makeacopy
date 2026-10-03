@@ -144,6 +144,7 @@ public class OCRUtils {
       return switch (code) {
         case "en" -> "English (Paddle)";
         case "latin" -> "Latin script (Paddle)";
+        case "he" -> "Hebrew (Paddle)";
         case "eslav" -> "East Slavic (Paddle)";
         case "cyrillic" -> "Cyrillic script (Paddle)";
         case "arabic" -> "Arabic script (Paddle)";

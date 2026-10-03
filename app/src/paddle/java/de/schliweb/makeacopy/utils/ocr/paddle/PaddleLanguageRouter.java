@@ -62,7 +62,7 @@ final class PaddleLanguageRouter {
      */
     static final List<String> MODEL_KEYS =
             Collections.unmodifiableList(Arrays.asList(
-                    "en", "latin", "eslav", "cyrillic", "arabic", "devanagari", "th", "el", "zh"));
+                    "en", "latin", "eslav", "cyrillic", "arabic", "devanagari", "th", "el", "zh", "hebrew"));
 
     /**
      * A mapping between language specification codes (e.g., "eng", "deu+eng")
@@ -85,6 +85,7 @@ final class PaddleLanguageRouter {
         base.put("th", "th_PP-OCRv5_mobile_rec");
         base.put("el", "el_PP-OCRv5_mobile_rec");
         base.put("zh", "PP-OCRv5_mobile_rec");
+        base.put("he", "he-OCRv5_mobile_rec");
         ASSET_BASENAME = Collections.unmodifiableMap(base);
 
         Map<String, String> m = new HashMap<>();
@@ -161,6 +162,10 @@ final class PaddleLanguageRouter {
         m.put("ja", "zh");
         m.put("kor", "zh");
         m.put("ko", "zh");
+        
+        // hebrew
+        m.put("heb", "he");
+        m.put("he", "he");
 
         LANG_TO_MODEL = Collections.unmodifiableMap(m);
     }
