@@ -85,7 +85,7 @@ final class PaddleLanguageRouter {
         base.put("th", "th_PP-OCRv5_mobile_rec");
         base.put("el", "el_PP-OCRv5_mobile_rec");
         base.put("zh", "PP-OCRv5_mobile_rec");
-        base.put("he", "he-OCRv5_mobile_rec");
+        base.put("he", "he_PP-OCRv5_mobile_rec");
         ASSET_BASENAME = Collections.unmodifiableMap(base);
 
         Map<String, String> m = new HashMap<>();
